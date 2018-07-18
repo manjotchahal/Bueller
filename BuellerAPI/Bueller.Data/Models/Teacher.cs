@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Bueller.Data.Models
 {
     [Table("Teachers", Schema = "Persons")]
-    public class Employee : BaseModel
+    public class Teacher : BaseModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

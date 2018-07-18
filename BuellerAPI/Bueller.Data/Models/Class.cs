@@ -66,7 +66,7 @@ namespace Bueller.Data.Models
         [ScaffoldColumn(false)]
         public int? TeacherId { get; set; }
         [ForeignKey("TeacherId")]
-        public virtual Employee Teacher { get; set; }
+        public virtual Teacher Teacher { get; set; }
 
         [Required]
         [ScaffoldColumn(false)]
