@@ -1,4 +1,5 @@
-﻿using Bueller.Data;
+﻿using AutoMapper;
+using Bueller.Data;
 using Bueller.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Bueller.Library.Repositories
 
         public T GetById(object id)
         {
-            return this.Entities.Find(id);
+            return Mapper.Map<T>(this.Entities.Find(id));
         }
 
         //used to add and test relationships between students and classes... 
@@ -43,7 +44,7 @@ namespace Bueller.Library.Repositories
                 {
                     throw new ArgumentNullException("entity");
                 }
-                this.Entities.Add(entity);
+                this.Entities.Add(Mapper.Map<T>(entity));
                 this._context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -99,7 +100,7 @@ namespace Bueller.Library.Repositories
                 {
                     throw new ArgumentNullException("entity");
                 }
-                this.Entities.Remove(entity);
+                this.Entities.Remove(Mapper.Map<T>(entity));
                 this._context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -123,7 +124,7 @@ namespace Bueller.Library.Repositories
         {
             get
             {
-                return this.Entities;
+                return Mapper.Map<IQueryable<T>>(this.Entities);
             }
         }
 

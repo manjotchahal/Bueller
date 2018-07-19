@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Bueller.Data.Models;
 
 namespace Bueller.Library.Models
 {
-    public class File
+    public class File : BaseModel
     {
         [ScaffoldColumn(false)]
         public int FileId { get; set; }

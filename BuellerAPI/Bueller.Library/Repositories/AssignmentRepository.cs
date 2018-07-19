@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Bueller.Library.Repositories
 {
-    public class AssignmentRepo : Crud<Assignment>
+    public class AssignmentRepository : Crud<Assignment>
     {
         private readonly IDbContext _context;
-        public AssignmentRepo(IDbContext context) : base(context)
+        public AssignmentRepository(IDbContext context) : base(context)
         {
             _context = context;
         }
@@ -20,25 +20,21 @@ namespace Bueller.Library.Repositories
         public IEnumerable<Assignment> GetAssignmentsByClassId(int id)
         {
             //return this.Entities.Where(x => x.ClassId == id).ToList();
-            var assignments = Entities.Where(x => x.ClassId == id).ToList();
-            return Mapper.Map<IEnumerable<Assignment>>(assignments);
+            return Table.Where(x => x.ClassId == id).ToList();
         }
         public IEnumerable<Assignment> GetAssignmentsByTeacherId(int id)
         {
-            var assignments = Entities.Where(x => x.Class.TeacherId == id).ToList();
-            return Mapper.Map<IEnumerable<Assignment>>(assignments);
+            return Table.Where(x => x.Class.TeacherId == id).ToList();
         }
 
         public IEnumerable<Assignment> GetAssignmentsWithFiles()
         {
-            var assignments = Entities.Where(x => x.Files.Count > 0).ToList();
-            return Mapper.Map<IEnumerable<Assignment>>(assignments);
+            return Table.Where(x => x.Files.Count > 0).ToList();
         }
 
         public IEnumerable<Assignment> GetAssignmentsByDueDate(DateTime duedate)
         {
-            var assignments = Entities.Where(x => x.DueDate == duedate).ToList();
-            return Mapper.Map<IEnumerable<Assignment>>(assignments);
+            return Table.Where(x => x.DueDate == duedate).ToList();
         }
     }
 }
