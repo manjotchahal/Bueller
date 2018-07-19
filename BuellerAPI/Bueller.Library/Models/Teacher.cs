@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using Bueller.Data.Models;
 
 namespace Bueller.Library.Models
 {
-    public class Teacher : BaseModel
+    public class Teacher
     {
         [ScaffoldColumn(false)]
         public int TeacherID { get; set; }

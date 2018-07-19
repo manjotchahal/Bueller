@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Bueller.Data;
+﻿using Bueller.Data;
 using Bueller.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bueller.Library.Repositories
+namespace Bueller.Data.Repositories
 {
     public class Crud<T> : ICrud<T> where T : BaseModel
     {
@@ -21,9 +20,9 @@ namespace Bueller.Library.Repositories
             this._context = context;
         }
 
-        public T GetById(object id)
+        public virtual T GetById(object id)
         {
-            return Mapper.Map<T>(this.Entities.Find(id));
+            return this.Entities.Find(id);
         }
 
         //used to add and test relationships between students and classes... 
@@ -36,7 +35,7 @@ namespace Bueller.Library.Repositories
         //    _context.SaveChanges();
         //}
 
-        public void Insert(T entity)
+        public virtual void Insert(T entity)
         {
             try
             {
@@ -44,7 +43,7 @@ namespace Bueller.Library.Repositories
                 {
                     throw new ArgumentNullException("entity");
                 }
-                this.Entities.Add(Mapper.Map<T>(entity));
+                this.Entities.Add(entity);
                 this._context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -64,7 +63,7 @@ namespace Bueller.Library.Repositories
             }
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             try
             {
@@ -92,7 +91,7 @@ namespace Bueller.Library.Repositories
             }
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             try
             {
@@ -100,7 +99,7 @@ namespace Bueller.Library.Repositories
                 {
                     throw new ArgumentNullException("entity");
                 }
-                this.Entities.Remove(Mapper.Map<T>(entity));
+                this.Entities.Remove(entity);
                 this._context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -124,7 +123,7 @@ namespace Bueller.Library.Repositories
         {
             get
             {
-                return Mapper.Map<IQueryable<T>>(this.Entities);
+                return this.Entities;
             }
         }
 

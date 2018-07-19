@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bueller.Library.Repositories
+namespace Bueller.Data.Repositories
 {
     public interface ICrud<T> where T : BaseModel
     {
