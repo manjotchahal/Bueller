@@ -16,22 +16,22 @@ namespace Bueller.Data.Models
         [ScaffoldColumn(false)]
         public int GradeId { get; set; }
 
-        [Required(ErrorMessage = "Evaluation type is required")]
+        [Required]
         [DataType(DataType.Text)]
-        [StringLength(50, ErrorMessage = "Evaluation type cannot be more than 50 characters")]
+        [StringLength(50, ErrorMessage = "Evaluation type cannot be more than {1} characters")]
         public string EvaluationType { get; set; }
 
-        [Required(ErrorMessage = "Score is required")]
+        [Required]
         [Range(0, 200, ErrorMessage = "Score must be between 0 and 200")]
         public double Score { get; set; }
 
-        [Required(ErrorMessage = "Grade letter is required")]
+        [Required]
         [DataType(DataType.Text)]
-        [StringLength(2, ErrorMessage = "Grade letter cannot be more than 2 characters")]
-        public string GradeLetter { get; set; }
+        [StringLength(2, ErrorMessage = "Letter grade cannot be more than {1} characters")]
+        public string LetterGrade { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [StringLength(500, ErrorMessage = "Comment cannot be more than 500 characters")]
+        [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
         public string Comment { get; set; }
 
         //[Required]

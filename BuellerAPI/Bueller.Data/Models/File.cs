@@ -18,8 +18,8 @@ namespace Bueller.Data.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "File name cannot be more than 100 characters")]
-        public string FileName { get; set; }
+        [StringLength(100, ErrorMessage = "File name cannot be more than {1} characters")]
+        public string Name { get; set; }
 
         //[DataType(DataType.Upload)]     //not sure about this annotation
         //public string FileLocation { get; set; }

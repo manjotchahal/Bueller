@@ -19,10 +19,10 @@ namespace Bueller.Data.Models
         // this will also be title of homework assignment
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "Assignment name cannot be more than 100 characters")]
-        public string AssignmentName { get; set; }
+        [StringLength(100, ErrorMessage = "Assignment name cannot be more than {1} characters")]
+        public string Name { get; set; }
 
-        [Required(ErrorMessage = "Due date is required")]
+        [Required]
         [Column(TypeName = "datetime2")]
         public DateTime DueDate { get; set; }
 

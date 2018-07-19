@@ -15,50 +15,60 @@ namespace Bueller.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ScaffoldColumn(false)]
         public int ClassId { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+
+        [Required]
         [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "Name cannot be more than 100 characters")]
+        [StringLength(100, ErrorMessage = "Name cannot be more than {1} characters")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Room number is required")]
+
+        [Required]
         [DataType(DataType.Text)]
-        [StringLength(20, ErrorMessage = "Room number cannot be more than 100 characters")]
+        [StringLength(20, ErrorMessage = "Room number cannot be more than {1} characters")]
         public string RoomNumber { get; set; }
-        [Required(ErrorMessage = "Section is required")]
+
+        [Required]
         [DataType(DataType.Text)]
-        [StringLength(10, ErrorMessage = "Section cannot be more than 100 characters")]
+        [StringLength(10, ErrorMessage = "Section cannot be more than {1} characters")]
         public string Section { get; set; }
-        [Required(ErrorMessage = "Credits is required")]
+
+        [Required]
         [Range(1, 6, ErrorMessage = "Number of credits must be between 1 and 6")]
         public int Credits { get; set; }
-        [Required(ErrorMessage = "Description is required")]
+
+        [Required]
         [DataType(DataType.MultilineText)]
-        [StringLength(500, ErrorMessage = "Description cannot be more than 500 characters")]
+        [StringLength(500, ErrorMessage = "Description cannot be more than {1} characters")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Start time is required")]
+        [Required]
         [Column(TypeName = "time")]
         [DataType(DataType.Time)]
         public TimeSpan StartTime { get; set; }
-        [Required(ErrorMessage = "End time is required")]
+
+        [Required]
         [Column(TypeName = "time")]
         [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
 
         //different ways to do this.. try 5 columns for now
         [Required]
-        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponsing day, 0 otherwise")]
+        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponding day, 0 otherwise")]
         public int Mon { get; set; }
+
         [Required]
-        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponsing day, 0 otherwise")]
+        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponding day, 0 otherwise")]
         public int Tues { get; set; }
+
         [Required]
-        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponsing day, 0 otherwise")]
+        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponding day, 0 otherwise")]
         public int Wed { get; set; }
+
         [Required]
-        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponsing day, 0 otherwise")]
+        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponding day, 0 otherwise")]
         public int Thurs { get; set; }
+
         [Required]
-        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponsing day, 0 otherwise")]
+        [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponding day, 0 otherwise")]
         public int Fri { get; set; }
 
         //no class level for now
@@ -75,7 +85,6 @@ namespace Bueller.Data.Models
         public virtual Subject Subject { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
-
         public virtual ICollection<Book> Books { get; set; }
         public virtual ICollection<Assignment> Assignments { get; set; }
 

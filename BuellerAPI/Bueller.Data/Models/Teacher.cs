@@ -20,51 +20,51 @@ namespace Bueller.Data.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(200, ErrorMessage = "Name must be shorter than {1} characters")]
+        [StringLength(100, ErrorMessage = "First name cannot be more than {1} characters")]
         public string FirstName { get; set; }
 
         [DataType(DataType.Text)]
-        [StringLength(200, ErrorMessage = "Name must be shorter than {1} charcters")]
+        [StringLength(100, ErrorMessage = "Middle name cannot be more than {1} charcters")]
         public string MiddleName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(200, ErrorMessage = "Name must be shorter than {1} characters")]
+        [StringLength(100, ErrorMessage = "Last name cannot be more than {1} characters")]
         public string LastName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "Title must be shorter than {1} characters")]
+        [StringLength(100, ErrorMessage = "Title cannot be more than {1} characters")]
         public string Title { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(200, ErrorMessage = "Street address must be shorter than {1} characters")]
+        [StringLength(200, ErrorMessage = "Street address cannot be more than {1} characters")]
         public string Street { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(200, ErrorMessage = "City must be shorter than {1} characters")]
+        [StringLength(100, ErrorMessage = "City cannot be more than {1} characters")]
         public string City { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(200, ErrorMessage = "State must be shorter than {1} characters")]
+        [StringLength(100, ErrorMessage = "State cannot be more than {1} characters")]
         public string State { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "Country must be shorter than {1} characters")]
+        [StringLength(100, ErrorMessage = "Country cannot be more than {1} characters")]
         public string Country { get; set; }
 
         [Required]
         [DataType(DataType.PostalCode)]
         [RegularExpression("[0-9]{5}", ErrorMessage = "Zipcode must be 5 digits")]
-        public int Zipcode { get; set; }
+        public string Zipcode { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(".{1,200}[@].{1,200}[.].{1,5}", ErrorMessage = "Email is too long, max 200 character on each side of @")]
+        [RegularExpression(".{1,200}[@].{1,200}[.].{1,5}", ErrorMessage = "Email address cannot have more than 200 characters on each side of @")]
         public string Email { get; set; }
 
         [Required]

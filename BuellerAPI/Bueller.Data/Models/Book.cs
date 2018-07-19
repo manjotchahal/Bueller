@@ -18,8 +18,8 @@ namespace Bueller.Data.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "Book name cannot be more than 100 characters")]
-        public string BookTitle { get; set; }
+        [StringLength(100, ErrorMessage = "Title cannot be more than {1} characters")]
+        public string Title { get; set; }
 
         //[DataType(DataType.Upload)]     //not sure about this annotation
         //public string FileLocation { get; set; }
@@ -29,8 +29,8 @@ namespace Bueller.Data.Models
         public decimal Price { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [StringLength(500, ErrorMessage = "Description cannot be more than 500 characters")]
-        public string BookDescription { get; set; }
+        [StringLength(500, ErrorMessage = "Description cannot be more than {1} characters")]
+        public string Description { get; set; }
 
         //[Required]
         //[ScaffoldColumn(false)]
