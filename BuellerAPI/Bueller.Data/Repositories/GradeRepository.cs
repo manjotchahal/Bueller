@@ -25,5 +25,10 @@ namespace Bueller.Data.Repositories
         {
             return Mapper.Map<IEnumerable<Library.Models.Grade>>(Table.Where(x => x.LetterGrade.Equals("F")).ToList());
         }
+
+        public bool GradeExists(int id)
+        {
+            return Table.Any(a => a.GradeId == id);
+        }
     }
 }

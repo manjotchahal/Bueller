@@ -30,7 +30,7 @@ namespace Bueller.API.Controllers
         [Route("GetAll")]
         public IHttpActionResult GetEmployees()
         {
-            var employees = repo.Table.ToList();
+            var employees = repo.GetAll();
             if (!employees.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");
@@ -166,7 +166,7 @@ namespace Bueller.API.Controllers
 
         private bool EmployeeExists(int id)
         {
-            return repo.Table.Count(e => e.TeacherID == id) > 0;
+            return repo.TeacherExists(id);
         }
 
         #endregion

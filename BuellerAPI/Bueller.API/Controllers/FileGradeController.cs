@@ -27,7 +27,7 @@ namespace Bueller.API.Controllers
         [Route("File/GetAll")]
         public IHttpActionResult GetAllFiles()
         {
-            var files = fileRepo.Table.ToList();
+            var files = fileRepo.GetAll();
             if (!files.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");
@@ -168,7 +168,7 @@ namespace Bueller.API.Controllers
 
         private bool FileExists(int id)
         {
-            return fileRepo.Table.Count(e => e.FileId == id) > 0;
+            return fileRepo.FileExists(id);
         }
         #endregion
         #region Grade
@@ -176,7 +176,7 @@ namespace Bueller.API.Controllers
         [Route("Grade/GetAll")]
         public IHttpActionResult GetAllGrades()
         {
-            var grades = gradeRepo.Table.ToList();
+            var grades = gradeRepo.GetAll();
             if (!grades.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");
@@ -272,7 +272,7 @@ namespace Bueller.API.Controllers
 
         private bool GradeExists(int id)
         {
-            return gradeRepo.Table.Count(e => e.FileId == id) > 0;
+            return gradeRepo.GradeExists(id);
         }
         #endregion
     }

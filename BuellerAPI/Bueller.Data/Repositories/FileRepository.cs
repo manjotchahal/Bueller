@@ -44,5 +44,10 @@ namespace Bueller.Data.Repositories
         {
             return Mapper.Map<IEnumerable<Library.Models.File>>(Table.Where(x => x.AssignmentId == id).ToList());
         }
+
+        public bool FileExists(int id)
+        {
+            return Table.Any(a => a.FileId == id);
+        }
     }
 }

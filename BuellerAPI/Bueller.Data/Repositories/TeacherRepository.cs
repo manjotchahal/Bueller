@@ -30,5 +30,10 @@ namespace Bueller.Data.Repositories
         {
             return Mapper.Map<IEnumerable<Library.Models.Teacher>>(Table.OrderBy(x => x.FirstName).ToList());
         }
+
+        public bool TeacherExists(int id)
+        {
+            return Table.Any(a => a.TeacherID == id);
+        }
     }
 }

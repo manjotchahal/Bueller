@@ -31,7 +31,7 @@ namespace Bueller.API.Controllers
         [Route("GetAll")]
         public IHttpActionResult GetAllClasses()
         {
-            var classes = classRepo.Table.ToList();
+            var classes = classRepo.GetAll();
             if (!classes.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");
@@ -88,12 +88,12 @@ namespace Bueller.API.Controllers
         {
             //studentRepo.AddToClass();
             //var classes = studentRepo.Table.Where(x => x.StudentId == id).SelectMany(x => x.Classes).ToList();
-            var count = classRepo.GetEnrollmentCount(id);
-            if (count != null)
+            //var count = classRepo.GetEnrollmentCount(id);
+            if (ClassExists(id))
             {
-                return Ok(count);
+                return Ok(classRepo.GetEnrollmentCount(id));
             }
-            return NotFound();
+            return Content(HttpStatusCode.NotFound, "Item does not exist");
         }
 
         [HttpGet]
@@ -179,14 +179,13 @@ namespace Bueller.API.Controllers
 
         private bool ClassExists(int id)
         {
-            return classRepo.Table.Count(e => e.ClassId == id) > 0;
+            return classRepo.ClassExists(id);
         }
 
         #endregion
         #region Subject
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("Subject/GetAll")]
         public IHttpActionResult GetAllSubjects()
         {
@@ -200,7 +199,6 @@ namespace Bueller.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("Subject/GetAllNames")]
         public IHttpActionResult GetAllSubjectNames()
         {
@@ -214,7 +212,6 @@ namespace Bueller.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("Subject/GetById/{id}")]
         public IHttpActionResult GetSubjectById(int id)
         {
@@ -228,7 +225,6 @@ namespace Bueller.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("Subject/GetByName/{name}")]
         public IHttpActionResult GetSubjectByName(string name)
         {
@@ -242,7 +238,6 @@ namespace Bueller.API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [Route("Subject/Add", Name = "AddSubject")]
         public IHttpActionResult AddSubject(Subject subjectDto)
         {
@@ -257,7 +252,6 @@ namespace Bueller.API.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
         [Route("Subject/AddAt/{id}")]
         public IHttpActionResult AddSubjectAt(int id, Subject subjectDto)
         {
@@ -291,7 +285,6 @@ namespace Bueller.API.Controllers
         }
 
         [HttpDelete]
-        [AllowAnonymous]
         [Route("Subject/Delete/{id}")]
         public IHttpActionResult DeleteSubject(int id)
         {
@@ -308,7 +301,7 @@ namespace Bueller.API.Controllers
 
         private bool SubjectExists(int id)
         {
-            return subjectRepo.Table.Count(e => e.SubjectId == id) > 0;
+            return subjectRepo.SubjectExists(id);
         }
 
 

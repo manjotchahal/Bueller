@@ -35,5 +35,10 @@ namespace Bueller.Data.Repositories
         {
             return Table.Select(t => t.Name).ToList();
         }
+
+        public bool SubjectExists(int id)
+        {
+            return Table.Any(a => a.SubjectId == id);
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace Bueller.API.Controllers
         [Route("GetAll")]
         public IHttpActionResult GetBooks()
         {
-            var books = bookRepo.Table.ToList();
+            var books = bookRepo.GetAll();
             if (!books.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");

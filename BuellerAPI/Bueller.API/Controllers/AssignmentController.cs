@@ -26,7 +26,7 @@ namespace Bueller.API.Controllers
         [Route("GetAll")]
         public IHttpActionResult GetAssignments()
         {
-            var assignments = assignmentRepo.Table.ToList();
+            var assignments = assignmentRepo.GetAll();
             if (!assignments.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");
@@ -155,7 +155,7 @@ namespace Bueller.API.Controllers
 
         private bool AssignmentExists(int id)
         {
-            return assignmentRepo.Table.Count(e => e.AssignmentId == id) > 0;
+            return assignmentRepo.AssignmentExists(id);
         }
     }
 }

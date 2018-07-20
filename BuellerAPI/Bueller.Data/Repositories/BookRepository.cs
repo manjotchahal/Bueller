@@ -21,6 +21,11 @@ namespace Bueller.Data.Repositories
         public void Update(Library.Models.Book entity) { base.Update(Mapper.Map<Book>(entity)); }
         public IEnumerable<Library.Models.Book> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Book>>(Table.ToList()); }
 
+        public bool BookExists(int id)
+        {
+            return Table.Any(a => a.BookId == id);
+        }
+
         //move to cross table
         //public IEnumerable<Book> GetBookbyClassId(int id)
         //{

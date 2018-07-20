@@ -165,7 +165,7 @@ namespace Bueller.API.Controllers
             bool match = false;
             if (type.Equals("employee") || type.Equals("teacher"))
             {
-                account = employeeRepo.Table.FirstOrDefault(x => x.Email.Equals(email));
+                account = employeeRepo.GetTeacherByEmail(email);
                 match = true;
                 if (account != null)
                 {
@@ -175,7 +175,7 @@ namespace Bueller.API.Controllers
 
             if (type.Equals("student"))
             {
-                account = studentRepo.Table.FirstOrDefault(x => x.Email.Equals(email));
+                account = studentRepo.GetStudentByEmail(email);
                 match = true;
                 if (account != null)
                 {

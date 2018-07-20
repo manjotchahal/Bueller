@@ -39,5 +39,10 @@ namespace Bueller.Data.Repositories
         {
             return Mapper.Map<IEnumerable<Library.Models.Assignment>>(Table.Where(x => x.DueDate == duedate).ToList());
         }
+
+        public bool AssignmentExists(int id)
+        {
+            return Table.Any(a => a.AssignmentId == id);
+        }
     }
 }

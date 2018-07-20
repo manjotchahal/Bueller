@@ -30,7 +30,7 @@ namespace Bueller.API.Controllers
         [Route("GetAll")]
         public IHttpActionResult GetStudents()
         {
-            var students = repo.Table.ToList();
+            var students = repo.GetAll();
             if (!students.Any())
             {
                 return Content(HttpStatusCode.NoContent, "List is empty");
@@ -159,7 +159,7 @@ namespace Bueller.API.Controllers
 
         private bool StudentExists(int id)
         {
-            return repo.Table.Count(e => e.StudentId == id) > 0;
+            return repo.StudentExists(id);
         }
 
         #endregion

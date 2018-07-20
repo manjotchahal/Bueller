@@ -92,5 +92,10 @@ namespace Bueller.Data.Repositories
             }
             return false;
         }
+
+        public bool ClassExists(int id)
+        {
+            return Table.Any(a => a.ClassId == id);
+        }
     }
 }

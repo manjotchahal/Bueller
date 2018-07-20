@@ -20,5 +20,15 @@ namespace Bueller.Data.Repositories
         public void Insert(Library.Models.Student entity) { base.Insert(Mapper.Map<Student>(entity)); }
         public void Update(Library.Models.Student entity) { base.Update(Mapper.Map<Student>(entity)); }
         public IEnumerable<Library.Models.Student> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Student>>(Table.ToList()); }
+
+        public Library.Models.Student GetStudentByEmail(string email)
+        {
+            return Mapper.Map<Library.Models.Student>(Table.Where(x => x.Email == email).FirstOrDefault());
+        }
+
+        public bool StudentExists(int id)
+        {
+            return Table.Any(a => a.StudentId == id);
+        }
     }
 }
