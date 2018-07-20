@@ -31,7 +31,7 @@ namespace Bueller.API.Controllers
             var books = bookRepo.Table.ToList();
             if (!books.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(books);
         }
@@ -44,7 +44,7 @@ namespace Bueller.API.Controllers
             var books = cross.GetBooksByClassId(id);
             if (!books.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(books);
         }
@@ -57,7 +57,7 @@ namespace Bueller.API.Controllers
             var classes = cross.GetClassesByBookId(id);
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(classes);
         }

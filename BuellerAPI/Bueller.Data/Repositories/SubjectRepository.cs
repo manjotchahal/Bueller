@@ -19,7 +19,6 @@ namespace Bueller.Data.Repositories
         public new Library.Models.Subject GetById(object id) { return Mapper.Map<Library.Models.Subject>(base.GetById(id)); }
         public void Insert(Library.Models.Subject entity) { base.Insert(Mapper.Map<Subject>(entity)); }
         public void Update(Library.Models.Subject entity) { base.Update(Mapper.Map<Subject>(entity)); }
-        public void Delete(Library.Models.Subject entity) { base.Delete(Mapper.Map<Subject>(entity)); }
         public IEnumerable<Library.Models.Subject> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Subject>>(Table.ToList()); }
 
         public Library.Models.Subject GetByName(string name)
@@ -30,6 +29,11 @@ namespace Bueller.Data.Repositories
         public IEnumerable<Library.Models.Subject> GetSubjectsByDepartment(string department)
         {
             return Mapper.Map<IEnumerable<Library.Models.Subject>>(Table.Where(x => x.Department.Equals(department)).ToList());
+        }
+
+        public IEnumerable<string> GetAllNames()
+        {
+            return Table.Select(t => t.Name).ToList();
         }
     }
 }

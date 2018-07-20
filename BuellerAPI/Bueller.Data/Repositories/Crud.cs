@@ -91,10 +91,11 @@ namespace Bueller.Data.Repositories
             }
         }
 
-        public virtual void Delete(T entity)
+        public virtual void Delete(object id)
         {
             try
             {
+                var entity = this.Entities.Find(id);
                 if (entity == null)
                 {
                     throw new ArgumentNullException("entity");

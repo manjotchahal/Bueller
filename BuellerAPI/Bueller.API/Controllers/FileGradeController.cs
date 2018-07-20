@@ -30,7 +30,7 @@ namespace Bueller.API.Controllers
             var files = fileRepo.Table.ToList();
             if (!files.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(files);
         }
@@ -100,8 +100,8 @@ namespace Bueller.API.Controllers
             {
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
-            fileRepo.Delete(file);
-            return Ok(file);
+            fileRepo.Delete(id);
+            return Ok();
         }
 
         [HttpGet]
@@ -111,7 +111,7 @@ namespace Bueller.API.Controllers
             var files = fileRepo.GetFilesByStudentId(id).ToList();
             if (!files.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(files);
         }
@@ -123,7 +123,7 @@ namespace Bueller.API.Controllers
             var files = fileRepo.GetFilesByName(name).ToList();
             if (!files.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(files);
         }
@@ -135,7 +135,7 @@ namespace Bueller.API.Controllers
             var files = fileRepo.GetFilesByClassId(classId).ToList();
             if (!files.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(files);
         }
@@ -160,7 +160,7 @@ namespace Bueller.API.Controllers
             var files = fileRepo.GetByAssignmentId(id).ToList();
             if (!files.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(files);
@@ -179,7 +179,7 @@ namespace Bueller.API.Controllers
             var grades = gradeRepo.Table.ToList();
             if (!grades.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(grades);
         }
@@ -251,9 +251,9 @@ namespace Bueller.API.Controllers
             {
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
-            gradeRepo.Delete(grade);
+            gradeRepo.Delete(id);
 
-            return Ok(grade);
+            return Ok();
         }
 
         [HttpGet]
@@ -263,7 +263,7 @@ namespace Bueller.API.Controllers
             var grades = gradeRepo.GetFailingGrades().ToList();
             if (!grades.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(grades);
         }

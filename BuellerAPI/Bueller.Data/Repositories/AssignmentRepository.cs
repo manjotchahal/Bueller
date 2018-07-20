@@ -17,7 +17,7 @@ namespace Bueller.Data.Repositories
         public new Library.Models.Assignment GetById(object id) { return Mapper.Map<Library.Models.Assignment>(base.GetById(id)); }
         public void Insert(Library.Models.Assignment entity) { base.Insert(Mapper.Map<Assignment>(entity)); }
         public void Update(Library.Models.Assignment entity) { base.Update(Mapper.Map<Assignment>(entity)); }
-        public void Delete(Library.Models.Assignment entity) { base.Delete(Mapper.Map<Assignment>(entity)); }
+        //public void Delete(Library.Models.Assignment entity) { base.Delete(Mapper.Map<Assignment>(entity)); }
         public IEnumerable<Library.Models.Assignment> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Assignment>>(Table.ToList()); }
 
         public IEnumerable<Library.Models.Assignment> GetAssignmentsByClassId(int id)

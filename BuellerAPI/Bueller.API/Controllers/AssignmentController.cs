@@ -29,7 +29,7 @@ namespace Bueller.API.Controllers
             var assignments = assignmentRepo.Table.ToList();
             if (!assignments.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(assignments);
         }
@@ -112,9 +112,9 @@ namespace Bueller.API.Controllers
             {
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
-            assignmentRepo.Delete(assignment);
+            assignmentRepo.Delete(id);
 
-            return Ok(assignment);
+            return Ok();
         }
 
         [HttpGet]
@@ -124,7 +124,7 @@ namespace Bueller.API.Controllers
             var assignments = assignmentRepo.GetAssignmentsByClassId(id);
             if (!assignments.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(assignments);
         }
@@ -136,7 +136,7 @@ namespace Bueller.API.Controllers
             var assignments = assignmentRepo.GetAssignmentsWithFiles();
             if (!assignments.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(assignments);
         }
@@ -148,7 +148,7 @@ namespace Bueller.API.Controllers
             var assignments = assignmentRepo.GetAssignmentsByDueDate(duedate);
             if (!assignments.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(assignments);
         }

@@ -19,7 +19,6 @@ namespace Bueller.Data.Repositories
         public new Library.Models.Student GetById(object id) { return Mapper.Map<Library.Models.Student>(base.GetById(id)); }
         public void Insert(Library.Models.Student entity) { base.Insert(Mapper.Map<Student>(entity)); }
         public void Update(Library.Models.Student entity) { base.Update(Mapper.Map<Student>(entity)); }
-        public void Delete(Library.Models.Student entity) { base.Delete(Mapper.Map<Student>(entity)); }
         public IEnumerable<Library.Models.Student> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Student>>(Table.ToList()); }
     }
 }

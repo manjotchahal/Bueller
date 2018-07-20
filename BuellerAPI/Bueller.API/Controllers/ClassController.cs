@@ -34,7 +34,7 @@ namespace Bueller.API.Controllers
             var classes = classRepo.Table.ToList();
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(classes);
@@ -48,7 +48,7 @@ namespace Bueller.API.Controllers
             var classes = classRepo.GetClassesByTeacherId(id);
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(classes);
@@ -73,12 +73,13 @@ namespace Bueller.API.Controllers
         {
             //studentRepo.AddToClass();
             //var classes = studentRepo.Table.Where(x => x.StudentId == id).SelectMany(x => x.Classes).ToList();
-            var classes = classRepo.Table.Where(x => x.Students.Any(a => a.StudentId == id)).ToList();
-            if (classes != null)
+            //var classes = classRepo.Table.Where(x => x.Students.Any(a => a.StudentId == id)).ToList();
+            var classes = cross.GetClassesByStudentId(id);
+            if (!classes.Any())
             {
-                return Ok(classes);
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
-            return NotFound();
+            return Ok(classes);
         }
 
         [HttpGet]
@@ -171,7 +172,7 @@ namespace Bueller.API.Controllers
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
 
-            classRepo.Delete(result);
+            classRepo.Delete(id);
 
             return Ok();
         }
@@ -185,32 +186,35 @@ namespace Bueller.API.Controllers
         #region Subject
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Subject/GetAll")]
         public IHttpActionResult GetAllSubjects()
         {
-            var subjects = subjectRepo.Table.ToList();
+            var subjects = subjectRepo.GetAll();
             if (!subjects.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(subjects);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Subject/GetAllNames")]
         public IHttpActionResult GetAllSubjectNames()
         {
-            var subjects = subjectRepo.Table.Select(t => t.Name).ToList();
+            var subjects = subjectRepo.GetAllNames();
             if (!subjects.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(subjects);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Subject/GetById/{id}")]
         public IHttpActionResult GetSubjectById(int id)
         {
@@ -224,6 +228,7 @@ namespace Bueller.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Subject/GetByName/{name}")]
         public IHttpActionResult GetSubjectByName(string name)
         {
@@ -237,6 +242,7 @@ namespace Bueller.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Subject/Add", Name = "AddSubject")]
         public IHttpActionResult AddSubject(Subject subjectDto)
         {
@@ -251,6 +257,7 @@ namespace Bueller.API.Controllers
         }
 
         [HttpPut]
+        [AllowAnonymous]
         [Route("Subject/AddAt/{id}")]
         public IHttpActionResult AddSubjectAt(int id, Subject subjectDto)
         {
@@ -280,10 +287,11 @@ namespace Bueller.API.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NotFound);
+            return StatusCode(HttpStatusCode.OK);
         }
 
         [HttpDelete]
+        [AllowAnonymous]
         [Route("Subject/Delete/{id}")]
         public IHttpActionResult DeleteSubject(int id)
         {
@@ -293,7 +301,9 @@ namespace Bueller.API.Controllers
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
 
-            return Ok(subject);
+            subjectRepo.Delete(id);
+
+            return Ok();
         }
 
         private bool SubjectExists(int id)

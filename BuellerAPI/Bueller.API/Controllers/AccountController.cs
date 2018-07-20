@@ -131,7 +131,7 @@ namespace Bueller.API.Controllers
         public IHttpActionResult Logout()
         {
             Request.GetOwinContext().Authentication.SignOut(WebApiConfig.AuthenticationType);
-            return Ok();
+            return Ok("Logged Out");
         }
 
         [HttpGet]

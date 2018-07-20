@@ -19,7 +19,6 @@ namespace Bueller.Data.Repositories
         public new Library.Models.Grade GetById(object id) { return Mapper.Map<Library.Models.Grade>(base.GetById(id)); }
         public void Insert(Library.Models.Grade entity) { base.Insert(Mapper.Map<Grade>(entity)); }
         public void Update(Library.Models.Grade entity) { base.Update(Mapper.Map<Grade>(entity)); }
-        public void Delete(Library.Models.Grade entity) { base.Delete(Mapper.Map<Grade>(entity)); }
         public IEnumerable<Library.Models.Grade> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Grade>>(Table.ToList()); }
 
         public IEnumerable<Library.Models.Grade> GetFailingGrades()

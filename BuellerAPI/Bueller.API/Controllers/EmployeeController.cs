@@ -33,7 +33,7 @@ namespace Bueller.API.Controllers
             var employees = repo.Table.ToList();
             if (!employees.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
             return Ok(employees);
         }
@@ -120,9 +120,9 @@ namespace Bueller.API.Controllers
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
 
-            repo.Delete(employee);
+            repo.Delete(id);
 
-            return Ok(employee);
+            return Ok();
         }
 
         //[HttpGet]
@@ -145,7 +145,7 @@ namespace Bueller.API.Controllers
             var employees = repo.GetTeachersByNameAscending();
             if (!employees.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(employees);
@@ -158,7 +158,7 @@ namespace Bueller.API.Controllers
             var students = cross.GetStudentsByTeacherId(id);
             if (!students.Any())
             {
-                return Content(HttpStatusCode.NotFound, "List is empty");
+                return Content(HttpStatusCode.NoContent, "List is empty");
             }
 
             return Ok(students);

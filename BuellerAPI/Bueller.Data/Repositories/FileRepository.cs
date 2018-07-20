@@ -19,7 +19,6 @@ namespace Bueller.Data.Repositories
         public new Library.Models.File GetById(object id) { return Mapper.Map<Library.Models.File>(base.GetById(id)); }
         public void Insert(Library.Models.File entity) { base.Insert(Mapper.Map<File>(entity)); }
         public void Update(Library.Models.File entity) { base.Update(Mapper.Map<File>(entity)); }
-        public void Delete(Library.Models.File entity) { base.Delete(Mapper.Map<File>(entity)); }
         public IEnumerable<Library.Models.File> GetAll() { return Mapper.Map<IEnumerable<Library.Models.File>>(Table.ToList()); }
 
         public IEnumerable<Library.Models.File> GetFilesByStudentId(int id)

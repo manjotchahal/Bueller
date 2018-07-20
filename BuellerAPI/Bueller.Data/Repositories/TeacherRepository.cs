@@ -19,7 +19,6 @@ namespace Bueller.Data.Repositories
         public new Library.Models.Teacher GetById(object id) { return Mapper.Map<Library.Models.Teacher>(base.GetById(id)); }
         public void Insert(Library.Models.Teacher entity) { base.Insert(Mapper.Map<Teacher>(entity)); }
         public void Update(Library.Models.Teacher entity) { base.Update(Mapper.Map<Teacher>(entity)); }
-        public void Delete(Library.Models.Teacher entity) { base.Delete(Mapper.Map<Teacher>(entity)); }
         public IEnumerable<Library.Models.Teacher> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Teacher>>(Table.ToList()); }
 
         public Library.Models.Teacher GetTeacherByEmail(string email)
