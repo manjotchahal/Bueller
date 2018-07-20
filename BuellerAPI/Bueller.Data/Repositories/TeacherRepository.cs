@@ -22,12 +22,12 @@ namespace Bueller.Data.Repositories
         public void Delete(Library.Models.Teacher entity) { base.Delete(Mapper.Map<Teacher>(entity)); }
         public IEnumerable<Library.Models.Teacher> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Teacher>>(Table.ToList()); }
 
-        public Library.Models.Teacher GetEmployeeByEmail(string email)
+        public Library.Models.Teacher GetTeacherByEmail(string email)
         {
             return Mapper.Map<Library.Models.Teacher>(Table.Where(x => x.Email == email).FirstOrDefault());
         }
 
-        public IEnumerable<Library.Models.Teacher> GetEmployeesByNameAscending()
+        public IEnumerable<Library.Models.Teacher> GetTeachersByNameAscending()
         {
             return Mapper.Map<IEnumerable<Library.Models.Teacher>>(Table.OrderBy(x => x.FirstName).ToList());
         }
