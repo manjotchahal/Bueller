@@ -21,6 +21,8 @@ namespace Bueller.Data.Repositories
         public void Update(Library.Models.Class entity) { base.Update(Mapper.Map<Class>(entity)); }
         public IEnumerable<Library.Models.Class> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Class>>(Table.ToList()); }
 
+        internal Class GetByIdDataObject(object id) { return base.GetById(id); }
+
         public int ConvertClassNameIntoId(string className)
         {
             return Table.Where(x => x.Name.StartsWith(className)).Select(x => x.ClassId).FirstOrDefault();

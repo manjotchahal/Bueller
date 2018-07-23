@@ -22,14 +22,29 @@
 <div class="card-deck" style="text-align: center">
     <div class="card">
         <div class="card-header">Total Enrollment</div>
-        <div class="card-body"><b>@result[0] Students</b></div>
+        <div class="card-body"><b>
+    @result[0] @if (int.Parse(result[0]) == 1)
+        {<text>Student</text>}
+    else
+    { <text>Students</text>}
+</b></div>
     </div>
     <div class="card">
         <div class="card-header">Total Faculty</div>
-        <div class="card-body"><b>@result[1] Teachers</b></div>
+        <div class="card-body"><b>
+    @result[1] @if (int.Parse(result[1]) == 1)
+        {<text>Teacher</text>}
+    else
+    { <text>Teachers</text>}
+</b></div>
     </div>
     <div class="card">
         <div class="card-header">Classes Offered</div>
-        <div class="card-body"><b>@result[2] Classes</b></div>
+        <div class="card-body"><b>
+    @result[2] @if (int.Parse(result[2]) == 1)
+        {<text>Class</text>}
+    else
+    { <text>Classes</text>}
+</b></div>
     </div>
 </div>

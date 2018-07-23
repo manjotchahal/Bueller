@@ -34,8 +34,8 @@ namespace Bueller.Data.Repositories
 
         public void EnrollStudent(int classid, int studentid)
         {
-            var student = studentRepository.GetById(studentid);
-            var classresult = classRepository.GetById(classid);
+            var student = studentRepository.GetByIdDataObject(studentid);
+            var classresult = classRepository.GetByIdDataObject(classid);
             classresult.Students.Add(student);
             unit.SaveChanges();
 
@@ -48,8 +48,8 @@ namespace Bueller.Data.Repositories
 
         public void AssignBook(int classid, int bookid)
         {
-            var book = bookRepository.GetById(bookid);
-            var classresult = classRepository.GetById(classid);
+            var book = bookRepository.GetByIdDataObject(bookid);
+            var classresult = classRepository.GetByIdDataObject(classid);
             classresult.Books.Add(book);
             unit.SaveChanges();
         }

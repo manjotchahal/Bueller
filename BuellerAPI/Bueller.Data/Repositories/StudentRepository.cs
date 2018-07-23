@@ -21,6 +21,8 @@ namespace Bueller.Data.Repositories
         public void Update(Library.Models.Student entity) { base.Update(Mapper.Map<Student>(entity)); }
         public IEnumerable<Library.Models.Student> GetAll() { return Mapper.Map<IEnumerable<Library.Models.Student>>(Table.ToList()); }
 
+        internal Student GetByIdDataObject (object id) { return base.GetById(id); }
+
         public Library.Models.Student GetStudentByEmail(string email)
         {
             return Mapper.Map<Library.Models.Student>(Table.Where(x => x.Email == email).FirstOrDefault());
