@@ -33,7 +33,7 @@ namespace Bueller.API.Controllers
             var students = repo.GetAll();
             if (!students.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(students);
@@ -125,7 +125,7 @@ namespace Bueller.API.Controllers
             var grades = cross.GetGradesByStudentId(id);
             if (!grades.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(grades);
@@ -138,7 +138,7 @@ namespace Bueller.API.Controllers
             var teachers = cross.GetTeachersByStudentId(id);
             if (!teachers.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(teachers);
@@ -151,7 +151,7 @@ namespace Bueller.API.Controllers
             var classes = cross.GetClassesByStudentId(id);
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(classes);

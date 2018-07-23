@@ -34,7 +34,7 @@ namespace Bueller.API.Controllers
             var classes = classRepo.GetAll();
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(classes);
@@ -48,7 +48,7 @@ namespace Bueller.API.Controllers
             var classes = classRepo.GetClassesByTeacherId(id);
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(classes);
@@ -77,7 +77,7 @@ namespace Bueller.API.Controllers
             var classes = cross.GetClassesByStudentId(id);
             if (!classes.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
             return Ok(classes);
         }
@@ -192,7 +192,7 @@ namespace Bueller.API.Controllers
             var subjects = subjectRepo.GetAll();
             if (!subjects.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(subjects);
@@ -205,7 +205,7 @@ namespace Bueller.API.Controllers
             var subjects = subjectRepo.GetAllNames();
             if (!subjects.Any())
             {
-                return Content(HttpStatusCode.NoContent, "List is empty");
+                return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
             return Ok(subjects);
