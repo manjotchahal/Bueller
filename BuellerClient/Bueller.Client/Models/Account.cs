@@ -19,4 +19,3 @@ namespace Bueller.Client.Models
         public string Password { get; set; }
     }
 }
-}

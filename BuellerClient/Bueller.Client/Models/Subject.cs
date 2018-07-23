@@ -25,4 +25,3 @@ namespace Bueller.Client.Models
         public DateTime? Modified { get; set; }
     }
 }
-}
