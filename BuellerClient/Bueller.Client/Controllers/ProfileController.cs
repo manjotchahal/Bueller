@@ -20,7 +20,7 @@ namespace Bueller.Client.Controllers
             if (role == "teacher" || role == "employee")
             {
                 //Employee emp = await apiResponse.Content.ReadAsAsync<Employee>();
-                return RedirectToAction("Employee");
+                return RedirectToAction("Teacher");
             }
             if (role == "student")
             {
@@ -32,7 +32,7 @@ namespace Bueller.Client.Controllers
         }
 
         // GET: Profile/Details/5
-        public async Task<ActionResult> Employee()
+        public async Task<ActionResult> Teacher()
         {
             var role = Request.Cookies["Role"].Value;
 
@@ -106,7 +106,7 @@ namespace Bueller.Client.Controllers
         }
 
         // GET: Profile/Edit/5
-        public async Task<ActionResult> EditEmployee()
+        public async Task<ActionResult> EditTeacher()
         {
             var role = Request.Cookies["Role"].Value;
 
@@ -143,7 +143,7 @@ namespace Bueller.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditEmployee(Teacher employee)
+        public async Task<ActionResult> EditTeacher(Teacher employee)
         {
             var role = Request.Cookies["Role"].Value;
 

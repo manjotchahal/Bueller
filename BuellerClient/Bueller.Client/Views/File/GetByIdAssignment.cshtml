@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Bueller.Client.Models.File>
+
+@{
+    ViewBag.Title = "GetByIdAssignment";
+}
+
+<h2>Files</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Submitted On
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FirstName) @Html.DisplayFor(modelItem => item.Student.LastName)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.FileId }) |*@
+                @Html.ActionLink("Grade File", "Create", "Grade", new { fileId = item.FileId }, null) @*|
+                    @Html.ActionLink("Details", "Details", new { id=item.FileId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.FileId })*@
+            </td>
+        </tr>
+    }
+
+</table>

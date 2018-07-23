@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Bueller.Client.Models.Class>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Classes</h2>
+
+@*<p>
+        @Html.ActionLink("Enroll", "Enroll")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Section)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credits)
+        </th>
+        @if (Request.Cookies["Role"].Value != "teacher")
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher)
+            </th>
+        }
+        <th>
+            @Html.DisplayNameFor(model => model.ClassDays)
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credits)
+                </td>
+                @if (Request.Cookies["Role"].Value != "teacher")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Teacher.FirstName) @Html.DisplayFor(modelItem => item.Teacher.LastName)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassDays)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTimeFormatted) -
+                    @Html.DisplayFor(modelItem => item.EndTimeFormatted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+                <td>
+                    @if (ViewBag.Role == "teacher")
+                    {
+                        <p>
+                            @Html.ActionLink("Details", "Details", new { id = item.ClassId }) |
+                            @Html.ActionLink("Assignments", "Index", "Assignment", new { id = item.ClassId }, null) @*|
+                                @Html.ActionLink("Edit", "Edit", new {id = item.ClassId})*@ @*|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ClassId }) |*@
+                                @*@Html.ActionLink("Submitted Files", "GetByIdClass", "File", new { classId = item.ClassId }, null)*@
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+
+                                @Html.ActionLink("Details", "Details", new { id = item.ClassId }) |
+                                @Html.ActionLink("Assignments", "Index", "Assignment", new { id = item.ClassId }, null)
+                            </p>
+                        }
+                    @*@Html.ActionLink("Details", "Details", new {id = item.ClassId}) |
+                        @Html.ActionLink("Assignments", "Index", "Assignment", new {id = item.ClassId}, null) |
+                        @Html.ActionLink("Edit", "Edit", new {id = item.ClassId}) |
+                        @Html.ActionLink("Delete", "Delete", new {id = item.ClassId})*@
+                </td>
+            </tr>
+        }
+    }
+
+</table>

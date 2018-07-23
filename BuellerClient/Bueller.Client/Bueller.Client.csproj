@@ -253,18 +253,45 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\IndexCalendar.cshtml" />
+    <Content Include="Views\Shared\HomeView.cshtml" />
+    <Content Include="Views\Shared\StudentView.cshtml" />
+    <Content Include="Views\Shared\TeacherView.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\RegisterTeacherInfo.cshtml" />
+    <Content Include="Views\Account\RegisterStudentInfo.cshtml" />
+    <Content Include="Views\Assignment\Create.cshtml" />
+    <Content Include="Views\Assignment\Delete.cshtml" />
+    <Content Include="Views\Assignment\Index.cshtml" />
+    <Content Include="Views\Class\Create.cshtml" />
+    <Content Include="Views\Class\Details.cshtml" />
+    <Content Include="Views\Class\Edit.cshtml" />
+    <Content Include="Views\Class\EnrollConfirm.cshtml" />
+    <Content Include="Views\Class\Index.cshtml" />
+    <Content Include="Views\Class\MyClasses.cshtml" />
+    <Content Include="Views\Grade\Create.cshtml" />
+    <Content Include="Views\Grade\Index.cshtml" />
+    <Content Include="Views\Profile\EditTeacher.cshtml" />
+    <Content Include="Views\Profile\EditStudent.cshtml" />
+    <Content Include="Views\Profile\Teacher.cshtml" />
+    <Content Include="Views\Profile\Student.cshtml" />
+    <Content Include="Views\Teacher\GetStudents.cshtml" />
+    <Content Include="Views\Student\GetTeachers.cshtml" />
+    <Content Include="Views\Student\StudentAssignments.cshtml" />
+    <Content Include="Views\File\AddFile.cshtml" />
+    <Content Include="Views\File\ClassFiles.cshtml" />
+    <Content Include="Views\File\Delete.cshtml" />
+    <Content Include="Views\File\Details.cshtml" />
+    <Content Include="Views\File\Edit.cshtml" />
+    <Content Include="Views\File\GetByIdAssignment.cshtml" />
+    <Content Include="Views\File\GetByIdClass.cshtml" />
+    <Content Include="Views\File\GetByIdStudent.cshtml" />
+    <Content Include="Views\File\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\Assignment\" />
-    <Folder Include="Views\Class\" />
-    <Folder Include="Views\File\" />
-    <Folder Include="Views\Grade\" />
-    <Folder Include="Views\Profile\" />
     <Folder Include="Views\Service\" />
-    <Folder Include="Views\Student\" />
-    <Folder Include="Views\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

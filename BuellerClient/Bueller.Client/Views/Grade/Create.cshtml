@@ -1,0 +1,45 @@
+﻿@model Bueller.Client.Models.Grade
+
+
+<h2>Add Grade</h2>
+@using (Html.BeginForm("Create", "Grade", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.FileId)
+
+            @Html.LabelFor(model => model.LetterGrade, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(m => m.LetterGrade, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LetterGrade, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(m => m.Comment, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+
+            <br />
+            @Html.LabelFor(model => model.EvaluationType, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(m => m.EvaluationType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EvaluationType, "", new { @class = "text-danger" })
+
+            <br />
+            @Html.LabelFor(model => model.Score, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(m => m.Score, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Score, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit Grade" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

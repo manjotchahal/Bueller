@@ -1,0 +1,89 @@
+﻿@model Bueller.Client.Models.Class
+
+@{
+    ViewBag.Title = "EnrollConfirm";
+}
+
+<h2>Are you sure you want to enroll in this class?</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Section)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Section)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.FirstName) @Html.DisplayFor(model => model.Teacher.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassDays)
+        </dd>
+
+        <dt>
+            Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTimeFormatted) -
+            @Html.DisplayFor(model => model.EndTimeFormatted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+    @*@using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Enroll" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }*@
+</div>
+<p>
+    @Html.ActionLink("Enroll", "Enroll", new { id = ViewBag.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

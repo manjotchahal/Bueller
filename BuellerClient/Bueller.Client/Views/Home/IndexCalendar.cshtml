@@ -1,0 +1,99 @@
+﻿@using Bueller.Client.Models
+@model IEnumerable<Bueller.Client.Models.Class>
+
+@{
+    ViewBag.Title = "IndexCalendar";
+    List<Class> monClasses = new List<Class>();
+    List<Class> tueClasses = new List<Class>();
+    List<Class> wedClasses = new List<Class>();
+    List<Class> thurClasses = new List<Class>();
+    List<Class> friClasses = new List<Class>();
+    if (Model != null && Model.Any())
+    {
+        monClasses = Model.Where(x => x.Mon == 1).OrderBy(x => x.StartTime).ToList();
+        tueClasses = Model.Where(x => x.Tues == 1).OrderBy(x => x.StartTime).ToList();
+        wedClasses = Model.Where(x => x.Wed == 1).OrderBy(x => x.StartTime).ToList();
+        thurClasses = Model.Where(x => x.Thurs == 1).OrderBy(x => x.StartTime).ToList();
+        friClasses = Model.Where(x => x.Fri == 1).OrderBy(x => x.StartTime).ToList();
+    }
+
+}
+
+<header class="masthead" style="background-image: url(http://www.collegerank.net/wp-content/uploads/2015/08/university-of-washington-quad.jpg)">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Bueller</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header">Monday Classes</div>
+            <div class="card-body">
+                @if (monClasses.Any())
+                {
+                    foreach (var Class in monClasses)
+                    {
+                        <p><b>@Class.Name</b><br /> @Class.StartTimeFormatted-@Class.EndTimeFormatted</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Tuesday Classes</div>
+            <div class="card-body">
+                @if (tueClasses.Any())
+                {
+                    foreach (var Class in tueClasses)
+                    {
+                        <p><b>@Class.Name</b><br /> @Class.StartTimeFormatted-@Class.EndTimeFormatted</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Wednesday Classes</div>
+            <div class="card-body">
+                @if (wedClasses.Any())
+                {
+                    foreach (var Class in wedClasses)
+                    {
+                        <p><b>@Class.Name</b><br /> @Class.StartTimeFormatted-@Class.EndTimeFormatted</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Thursday Classes</div>
+            <div class="card-body">
+                @if (thurClasses.Any())
+                {
+                    foreach (var Class in thurClasses)
+                    {
+                        <p><b>@Class.Name</b><br /> @Class.StartTimeFormatted-@Class.EndTimeFormatted</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Friday Classes</div>
+            <div class="card-body">
+                @if (friClasses.Any())
+                {
+                    foreach (var Class in friClasses)
+                    {
+                        <p><b>@Class.Name</b><br /> @Class.StartTimeFormatted-@Class.EndTimeFormatted</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

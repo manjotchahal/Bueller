@@ -58,8 +58,8 @@ namespace Bueller.Client.Controllers
             }
             else
             {
-                //return RedirectToAction("RegisterEmployeeInfo", "Account", new { email = account.Email});//or email
-                return RedirectToAction("RegisterEmployeeInfo", "Account", new { email = account.Email, employeetype = role });//or email
+                //return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email});//or email
+                return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email, employeetype = role });//or email
             }
         }
 
@@ -71,8 +71,8 @@ namespace Bueller.Client.Controllers
         //not safe to pass role in url.. potential security problem if url modified after registering with role
         //solution: separate register employee and teacher
         //but also emails... use tempdata instead of passing data in URL???.... do later if time
-        [Route("RegisterEmployeeInfo")]
-        public ActionResult RegisterEmployeeInfo(string email, string employeetype)
+        [Route("RegisterTeacherInfo")]
+        public ActionResult RegisterTeacherInfo(string email, string employeetype)
         {
             ViewBag.Type = employeetype;
             //TempData["Role"] = employeetype;
@@ -114,7 +114,7 @@ namespace Bueller.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RegisterEmployeeInfo(Teacher employee)
+        public async Task<ActionResult> RegisterTeacherInfo(Teacher employee)
         {
             //string role = (string)TempData.Peek("Role");
             //if (role == "teacher")
