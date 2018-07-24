@@ -78,7 +78,8 @@
                 }
                 else
                 {
-                    <p>@Html.ActionLink("Details", "Details", new { id = item.ClassId })</p>
+                    <p>@Html.ActionLink("Details", "Details", new { id = item.ClassId })@if (item.TeacherId == null)
+                                        {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}</p>
                 }
 
                 @*|

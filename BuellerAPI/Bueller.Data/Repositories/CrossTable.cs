@@ -46,6 +46,14 @@ namespace Bueller.Data.Repositories
             //_context.SaveChanges();
         }
 
+        public void UnenrollStudent(int classid, int studentid)
+        {
+            var student = studentRepository.GetByIdDataObject(studentid);
+            var classresult = classRepository.GetByIdDataObject(classid);
+            classresult.Students.Remove(student);
+            unit.SaveChanges();
+        }
+
         public void AssignBook(int classid, int bookid)
         {
             var book = bookRepository.GetByIdDataObject(bookid);

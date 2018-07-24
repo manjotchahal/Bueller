@@ -23,6 +23,18 @@ namespace Bueller.Data.Repositories
 
         internal Class GetByIdDataObject(object id) { return base.GetById(id); }
 
+        public void EnrollTeacher(int classId, int teacherId)
+        {
+            GetByIdDataObject(classId).TeacherId = teacherId;
+            _context.SaveChanges();
+        }
+
+        public void UnenrollTeacher(int classId)
+        {
+            GetByIdDataObject(classId).TeacherId = null;
+            _context.SaveChanges();
+        }
+
         public int ConvertClassNameIntoId(string className)
         {
             return Table.Where(x => x.Name.StartsWith(className)).Select(x => x.ClassId).FirstOrDefault();
@@ -98,6 +110,11 @@ namespace Bueller.Data.Repositories
         public bool ClassExists(int id)
         {
             return Table.Any(a => a.ClassId == id);
+        }
+
+        public bool HasTeacher(int id)
+        {
+            return GetById(id).TeacherId != null;
         }
     }
 }

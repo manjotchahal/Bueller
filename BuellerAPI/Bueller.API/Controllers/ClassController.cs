@@ -112,6 +112,34 @@ namespace Bueller.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("Unenroll/{id}/{studentid}")]
+        public IHttpActionResult UnenrollStudent(int id, int studentid)
+        {
+            cross.UnenrollStudent(id, studentid);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("EnrollTeacher/{id}/{teacherid}")]
+        public IHttpActionResult EnrollTeacher(int id, int teacherid)
+        {
+            if (classRepo.HasTeacher(id))
+            {
+                return BadRequest("Has a teacher assigned already");
+            }
+            classRepo.EnrollTeacher(id, teacherid);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("UnenrollTeacher/{id}")]
+        public IHttpActionResult UnenrollTeacher(int id)
+        {
+            classRepo.UnenrollTeacher(id);
+            return Ok();
+        }
+
 
         [HttpPost]
         [Authorize(Roles = "teacher")]
