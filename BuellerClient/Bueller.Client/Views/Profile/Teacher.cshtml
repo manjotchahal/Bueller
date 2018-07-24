@@ -26,7 +26,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MiddleName)
+            @if (Model.MiddleName == null)
+            {
+                <text>Not specified</text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.MiddleName)
+            }
         </dd>
 
         <dt>
@@ -66,7 +73,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OfficePhoneNumber)
+            @if (Model.OfficePhoneNumber == null)
+            {
+                <text>Not specified</text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.OfficePhoneNumber)
+            }
         </dd>
 
         <dt>
@@ -74,7 +88,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OfficeNumber)
+            @if (Model.OfficeNumber == null)
+            {
+                <text>Not specified</text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.OfficeNumber)
+            }
         </dd>
 
         <dt>

@@ -18,7 +18,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MiddleName)
+            @if (Model.MiddleName == null)
+            {
+                <text>Not specified</text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.MiddleName)
+            }
         </dd>
 
         <dt>
