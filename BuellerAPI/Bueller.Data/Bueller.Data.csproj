@@ -84,6 +84,15 @@
     <Compile Include="AutoMapperProfile.cs" />
     <Compile Include="BuellerContext.cs" />
     <Compile Include="IDbContext.cs" />
+    <Compile Include="Migrations\201807201540118_InitialCreate.cs" />
+    <Compile Include="Migrations\201807201540118_InitialCreate.Designer.cs">
+      <DependentUpon>201807201540118_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807241953234_RemoveDepartmentInSubject.cs" />
+    <Compile Include="Migrations\201807241953234_RemoveDepartmentInSubject.Designer.cs">
+      <DependentUpon>201807241953234_RemoveDepartmentInSubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Book.cs" />
@@ -117,6 +126,14 @@
       <Project>{3c578a88-a2c4-498f-b636-5d4ac15a81ab}</Project>
       <Name>Bueller.Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807201540118_InitialCreate.resx">
+      <DependentUpon>201807201540118_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807241953234_RemoveDepartmentInSubject.resx">
+      <DependentUpon>201807241953234_RemoveDepartmentInSubject.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

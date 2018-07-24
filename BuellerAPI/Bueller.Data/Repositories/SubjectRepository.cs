@@ -26,10 +26,10 @@ namespace Bueller.Data.Repositories
             return Mapper.Map<Library.Models.Subject>(Table.Where(x => x.Name == name).FirstOrDefault());
         }
 
-        public IEnumerable<Library.Models.Subject> GetSubjectsByDepartment(string department)
-        {
-            return Mapper.Map<IEnumerable<Library.Models.Subject>>(Table.Where(x => x.Department.Equals(department)).ToList());
-        }
+        //public IEnumerable<Library.Models.Subject> GetSubjectsByDepartment(string department)
+        //{
+        //    return Mapper.Map<IEnumerable<Library.Models.Subject>>(Table.Where(x => x.Department.Equals(department)).ToList());
+        //}
 
         public IEnumerable<string> GetAllNames()
         {

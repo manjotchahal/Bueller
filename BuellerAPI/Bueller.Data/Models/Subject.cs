@@ -21,10 +21,10 @@ namespace Bueller.Data.Models
         [StringLength(100, ErrorMessage = "Name cannot be more than {1} characters")]
         public string Name { get; set; }
 
-        [Required]
-        [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "Department cannot be more than {1} characters")]
-        public string Department { get; set; }
+        //[Required]
+        //[DataType(DataType.Text)]
+        //[StringLength(100, ErrorMessage = "Department cannot be more than {1} characters")]
+        //public string Department { get; set; }
 
         //credits is part of class model
 
