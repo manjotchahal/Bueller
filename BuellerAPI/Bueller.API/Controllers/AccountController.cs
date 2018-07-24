@@ -128,39 +128,39 @@ namespace Bueller.API.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("Reset")]
-        [AllowAnonymous]
-        public IHttpActionResult Reset(Account account)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost]
+        //[Route("Reset")]
+        //[AllowAnonymous]
+        //public IHttpActionResult Reset(Account account)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            // get Identity user info from Db
-            var userStore = new UserStore<IdentityUser>(new IdentityContext());
-            var userManager = new UserManager<IdentityUser>(userStore);
-            var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Email);
+        //    // get Identity user info from Db
+        //    var userStore = new UserStore<IdentityUser>(new IdentityContext());
+        //    var userManager = new UserManager<IdentityUser>(userStore);
+        //    var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Email);
 
-            if (user == null)
-            {
-                return BadRequest();
-            }
+        //    if (user == null)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            //reset password here
-            var provider = new DpapiDataProtectionProvider("Sample");
-            userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser>(provider.Create("EmailConfirmation"));
-            string resetToken = userManager.GeneratePasswordResetToken(user.Id);
-            IdentityResult passwordChangeResult = userManager.ResetPassword(user.Id, resetToken, account.Password);
+        //    //reset password here
+        //    var provider = new DpapiDataProtectionProvider("Sample");
+        //    userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser>(provider.Create("EmailConfirmation"));
+        //    string resetToken = userManager.GeneratePasswordResetToken(user.Id);
+        //    IdentityResult passwordChangeResult = userManager.ResetPassword(user.Id, resetToken, account.Password);
 
-            //sign in here
-            var authManager = Request.GetOwinContext().Authentication;
-            var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
-            authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
+        //    //sign in here
+        //    var authManager = Request.GetOwinContext().Authentication;
+        //    var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
+        //    authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         [HttpGet]
         [Route("Logout")]
