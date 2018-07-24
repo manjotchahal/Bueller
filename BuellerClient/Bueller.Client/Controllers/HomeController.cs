@@ -156,17 +156,17 @@ namespace Bueller.Client.Controllers
             //PassCookiesToClient(apiResponse);
 
             HttpCookie Id = new HttpCookie("Id");
-            if (role == "teacher" || role == "employee")
+            if (role == "teacher"/* || role == "employee"*/)
             {
-                var employee = await apiResponse.Content.ReadAsAsync<Teacher>();
+                var teacher = await apiResponse.Content.ReadAsAsync<Teacher>();
 
-                Id.Value = employee.TeacherID.ToString();
+                Id.Value = teacher.TeacherID.ToString();
             }
             else if (role == "student")
             {
-                var employee = await apiResponse.Content.ReadAsAsync<Student>();
+                var student = await apiResponse.Content.ReadAsAsync<Student>();
 
-                Id.Value = employee.StudentId.ToString();
+                Id.Value = student.StudentId.ToString();
             }
 
             Response.Cookies.Add(Id);

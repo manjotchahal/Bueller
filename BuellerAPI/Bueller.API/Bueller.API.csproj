@@ -235,7 +235,7 @@
     <Compile Include="Controllers\AssignmentController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\FileGradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />

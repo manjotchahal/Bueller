@@ -17,7 +17,7 @@ namespace Bueller.Client.Controllers
         {
             var role = Request.Cookies["Role"].Value;
 
-            if (role == "teacher" || role == "employee")
+            if (role == "teacher"/* || role == "employee"*/)
             {
                 //Employee emp = await apiResponse.Content.ReadAsAsync<Employee>();
                 return RedirectToAction("Teacher");
@@ -36,14 +36,14 @@ namespace Bueller.Client.Controllers
         {
             var role = Request.Cookies["Role"].Value;
 
-            if (role != "teacher" && role != "employee")
+            if (role != "teacher"/* && role != "employee"*/)
             {
                 return View("Error");
             }
 
             var id = Request.Cookies["Id"].Value;
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Employee/GetById/{id}");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Teacher/GetById/{id}");
             HttpResponseMessage apiResponse;
 
             try
@@ -110,14 +110,14 @@ namespace Bueller.Client.Controllers
         {
             var role = Request.Cookies["Role"].Value;
 
-            if (role != "teacher" && role != "employee")
+            if (role != "teacher"/* && role != "employee"*/)
             {
                 return View("Error");
             }
 
             var id = Request.Cookies["Id"].Value;
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Employee/GetById/{id}");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Teacher/GetById/{id}");
             HttpResponseMessage apiResponse;
 
             try
@@ -143,11 +143,11 @@ namespace Bueller.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditTeacher(Teacher employee)
+        public async Task<ActionResult> EditTeacher(Teacher teacher)
         {
             var role = Request.Cookies["Role"].Value;
 
-            if (role != "teacher" && role != "employee")
+            if (role != "teacher"/* && role != "employee"*/)
             {
                 return View("Error");
             }
@@ -158,8 +158,8 @@ namespace Bueller.Client.Controllers
             var id = Request.Cookies["Id"].Value;
             var email = Request.Cookies["userEmailCookie"].Value;
 
-            employee.Email = email;
-            employee.TeacherID = Convert.ToInt32(id);
+            teacher.Email = email;
+            teacher.TeacherID = Convert.ToInt32(id);
 
             //if (!ModelState.IsValid)
             //{
@@ -175,8 +175,8 @@ namespace Bueller.Client.Controllers
             //    return View("Error");
             //}
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Employee/AddAt/{id}");
-            apiRequest.Content = new ObjectContent<Teacher>(employee, new JsonMediaTypeFormatter());
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Teacher/AddAt/{id}");
+            apiRequest.Content = new ObjectContent<Teacher>(teacher, new JsonMediaTypeFormatter());
             HttpResponseMessage apiResponse;
 
             try

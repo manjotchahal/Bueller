@@ -21,12 +21,12 @@ namespace Bueller.API.Controllers
     {
         private readonly UnitOfWork unit = new UnitOfWork();
         private StudentRepository studentRepo;
-        private TeacherRepository employeeRepo;
+        private TeacherRepository teacherRepo;
 
         public AccountController()
         {
             studentRepo = unit.StudentRepository();
-            employeeRepo = unit.TeacherRepository();
+            teacherRepo = unit.TeacherRepository();
         }
 
         //[HttpPost]
@@ -65,7 +65,7 @@ namespace Bueller.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!role.Equals("student") && !role.Equals("teacher") && !role.Equals("employee"))
+            if (!role.Equals("student") && !role.Equals("teacher")/* && !role.Equals("employee")*/)
             {
                 return BadRequest(role);
             }
@@ -199,9 +199,9 @@ namespace Bueller.API.Controllers
         {
             dynamic account;
             bool match = false;
-            if (type.Equals("employee") || type.Equals("teacher"))
+            if (/*type.Equals("employee") || */type.Equals("teacher"))
             {
-                account = employeeRepo.GetTeacherByEmail(email);
+                account = teacherRepo.GetTeacherByEmail(email);
                 match = true;
                 if (account != null)
                 {

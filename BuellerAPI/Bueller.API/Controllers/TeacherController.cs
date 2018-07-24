@@ -10,94 +10,94 @@ using System.Web.Http;
 
 namespace Bueller.API.Controllers
 {
-    [RoutePrefix("api/Employee")]
-    public class EmployeeController : ApiController
+    [RoutePrefix("api/Teacher")]
+    public class TeacherController : ApiController
     {
         private readonly UnitOfWork unit = new UnitOfWork();
         private readonly TeacherRepository repo;
         //private readonly EmployeeAccountRepo accountRepo;
         private CrossTable cross;
 
-        EmployeeController()
+        TeacherController()
         {
             repo = unit.TeacherRepository();
             //accountRepo = unit.EmployeeAccountRepo();
             cross = new CrossTable();
         }
 
-        #region Employees
+        #region Teachers
         [HttpGet]
         [Route("GetAll")]
-        public IHttpActionResult GetEmployees()
+        public IHttpActionResult GetTeachers()
         {
-            var employees = repo.GetAll();
-            if (!employees.Any())
+            var teachers = repo.GetAll();
+            if (!teachers.Any())
             {
                 return Content(HttpStatusCode.NotFound, "List is empty");
             }
-            return Ok(employees);
+            return Ok(teachers);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public IHttpActionResult GetEmployeeById(int id)
+        public IHttpActionResult GetTeacherById(int id)
         {
-            var employee = repo.GetById(id);
-            if (employee == null)
+            var teacher = repo.GetById(id);
+            if (teacher == null)
             {
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
-            return Ok(employee);
+            return Ok(teacher);
         }
 
         [HttpGet]
         [Route("GetByEmail/{email}/")]
-        public IHttpActionResult GetEmployeeByEmail(string email)
+        public IHttpActionResult GetTeacherByEmail(string email)
         {
-            var employee = repo.GetTeacherByEmail(email);
-            if (employee == null)
+            var teacher = repo.GetTeacherByEmail(email);
+            if (teacher == null)
             {
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
-            return Ok(employee);
+            return Ok(teacher);
         }
 
         [HttpPost]
-        [Route("Add", Name = "AddEmployee")]
-        public IHttpActionResult AddEmployee(Teacher employee)
+        [Route("Add", Name = "AddTeacher")]
+        public IHttpActionResult AddTeacher(Teacher teacher)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            repo.Insert(employee);
+            repo.Insert(teacher);
 
-            return CreatedAtRoute("AddEmployee", new { id = employee.TeacherID }, employee);
+            return CreatedAtRoute("AddTeacher", new { id = teacher.TeacherID }, teacher);
         }
 
         [HttpPut]
         [Route("AddAt/{id}")]
-        public IHttpActionResult UpdateEmployee(int id, Teacher employee)
+        public IHttpActionResult UpdateTeacher(int id, Teacher teacher)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != employee.TeacherID)
+            if (id != teacher.TeacherID)
             {
                 return BadRequest();
             }
 
             try
             {
-                repo.Update(employee);
+                repo.Update(teacher);
             }
 
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(id))
+                if (!TeacherExists(id))
                 {
                     return Content(HttpStatusCode.NotFound, "Item does not exist");
                 }
@@ -112,10 +112,10 @@ namespace Bueller.API.Controllers
 
         [HttpDelete]
         [Route("Delete/{id}")]
-        public IHttpActionResult DeleteEmployee(int id)
+        public IHttpActionResult DeleteTeacher(int id)
         {
-            var employee = repo.GetById(id);
-            if (employee == null)
+            var teacher = repo.GetById(id);
+            if (teacher == null)
             {
                 return Content(HttpStatusCode.NotFound, "Item does not exist");
             }
@@ -140,15 +140,15 @@ namespace Bueller.API.Controllers
 
         [HttpGet]
         [Route("Name")]
-        public IHttpActionResult GetEmployeesByNameAscending()
+        public IHttpActionResult GetTeachersByNameAscending()
         {
-            var employees = repo.GetTeachersByNameAscending();
-            if (!employees.Any())
+            var teachers = repo.GetTeachersByNameAscending();
+            if (!teachers.Any())
             {
                 return Content(HttpStatusCode.NotFound, "List is empty");
             }
 
-            return Ok(employees);
+            return Ok(teachers);
         }
 
         [HttpGet]
@@ -164,7 +164,7 @@ namespace Bueller.API.Controllers
             return Ok(students);
         }
 
-        private bool EmployeeExists(int id)
+        private bool TeacherExists(int id)
         {
             return repo.TeacherExists(id);
         }

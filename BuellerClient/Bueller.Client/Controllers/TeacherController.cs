@@ -21,7 +21,7 @@ namespace Bueller.Client.Controllers
         {
             int id = Convert.ToInt32(Request.Cookies["Id"].Value);
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Employee/GetStudentsByTeacherId/{id}");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Teacher/GetStudentsByTeacherId/{id}");
             HttpResponseMessage apiResponse;
 
             try

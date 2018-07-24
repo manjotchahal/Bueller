@@ -59,7 +59,7 @@ namespace Bueller.Client.Controllers
             else
             {
                 //return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email});//or email
-                return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email, employeetype = role });//or email
+                return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email/*, employeetype = role*/ });//or email
             }
         }
 
@@ -72,9 +72,9 @@ namespace Bueller.Client.Controllers
         //solution: separate register employee and teacher
         //but also emails... use tempdata instead of passing data in URL???.... do later if time
         [Route("RegisterTeacherInfo")]
-        public ActionResult RegisterTeacherInfo(string email, string employeetype)
+        public ActionResult RegisterTeacherInfo(string email/*, string employeetype*/)
         {
-            ViewBag.Type = employeetype;
+            //ViewBag.Type = employeetype;
             //TempData["Role"] = employeetype;
             return View();
         }
@@ -114,7 +114,7 @@ namespace Bueller.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RegisterTeacherInfo(Teacher employee)
+        public async Task<ActionResult> RegisterTeacherInfo(Teacher teacher)
         {
             //string role = (string)TempData.Peek("Role");
             //if (role == "teacher")
@@ -127,8 +127,8 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, $"api/Employee/Add");
-            apiRequest.Content = new ObjectContent<Teacher>(employee, new JsonMediaTypeFormatter());
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, $"api/Teacher/Add");
+            apiRequest.Content = new ObjectContent<Teacher>(teacher, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
             try
