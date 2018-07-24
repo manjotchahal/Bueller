@@ -3,7 +3,9 @@ using Bueller.Data;
 using Bueller.Data.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,6 +123,40 @@ namespace Bueller.API.Controllers
             var authManager = Request.GetOwinContext().Authentication;
             var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
 
+            authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("Reset")]
+        [AllowAnonymous]
+        public IHttpActionResult Reset(Account account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // get Identity user info from Db
+            var userStore = new UserStore<IdentityUser>(new IdentityContext());
+            var userManager = new UserManager<IdentityUser>(userStore);
+            var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Email);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            //reset password here
+            var provider = new DpapiDataProtectionProvider("Sample");
+            userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser>(provider.Create("EmailConfirmation"));
+            string resetToken = userManager.GeneratePasswordResetToken(user.Id);
+            IdentityResult passwordChangeResult = userManager.ResetPassword(user.Id, resetToken, account.Password);
+
+            //sign in here
+            var authManager = Request.GetOwinContext().Authentication;
+            var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
             authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
 
             return Ok();
