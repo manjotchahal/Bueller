@@ -27,6 +27,9 @@ namespace Bueller.Client.Models
         public virtual Student Student { get; set; }
 
         public DateTime Created { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
         public DateTime? Modified { get; set; }
 
         public override bool Equals(object obj)

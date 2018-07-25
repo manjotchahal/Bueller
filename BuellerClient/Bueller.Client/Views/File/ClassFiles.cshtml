@@ -25,7 +25,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Assignment)
+                @Html.DisplayFor(modelItem => item.Assignment.Name)
             </td>
             <li>@Html.ActionLink("Grade", "Create", "Grade", new { id = item.FileId }, null)</li>
         </tr>
