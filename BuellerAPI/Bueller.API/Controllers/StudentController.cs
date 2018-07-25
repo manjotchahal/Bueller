@@ -118,18 +118,18 @@ namespace Bueller.API.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("GetGradesByStudentId/{id}")]
-        public IHttpActionResult GetGradesByStudentId(int id)
-        {
-            var grades = cross.GetGradesByStudentId(id);
-            if (!grades.Any())
-            {
-                return Content(HttpStatusCode.NotFound, "List is empty");
-            }
+        //[HttpGet]
+        //[Route("GetGradesByStudentId/{id}")]
+        //public IHttpActionResult GetGradesByStudentId(int id)
+        //{
+        //    var grades = cross.GetGradesByStudentId(id);
+        //    if (!grades.Any())
+        //    {
+        //        return Content(HttpStatusCode.NotFound, "List is empty");
+        //    }
 
-            return Ok(grades);
-        }
+        //    return Ok(grades);
+        //}
 
         [HttpGet]
         [Route("GetTeachersByStudentId/{id}")]

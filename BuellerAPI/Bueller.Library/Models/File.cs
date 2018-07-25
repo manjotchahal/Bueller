@@ -27,6 +27,8 @@ namespace Bueller.Library.Models
         public int StudentId { get; set; }
         public virtual Student Student { get; set; }
 
+        public virtual Grade Grade { get; set; }
+
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
     }

@@ -42,6 +42,8 @@ namespace Bueller.Data.Models
         [ForeignKey("StudentId")]
         public virtual Student Student { get; set; }
 
+        public virtual Grade Grade { get; set; }
+
         [Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
         [Column(TypeName = "datetime2")]

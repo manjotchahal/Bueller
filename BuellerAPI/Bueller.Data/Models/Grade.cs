@@ -14,6 +14,7 @@ namespace Bueller.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ScaffoldColumn(false)]
+        [ForeignKey("File")]
         public int GradeId { get; set; }
 
         [Required]
@@ -46,10 +47,10 @@ namespace Bueller.Data.Models
         //[ForeignKey("TeacherId")]
         //public virtual Employee Teacher { get; set; }
 
-        [Required]
-        [ScaffoldColumn(false)]
-        public int FileId { get; set; }
-        [ForeignKey("FileId")]
+        //[Required]
+        //[ScaffoldColumn(false)]
+        //public int FileId { get; set; }
+        //[ForeignKey("FileId")]
         public virtual File File { get; set; }
 
         [Column(TypeName = "datetime2")]

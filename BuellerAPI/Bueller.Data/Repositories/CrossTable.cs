@@ -107,11 +107,11 @@ namespace Bueller.Data.Repositories
             };
         }
 
-        public IEnumerable<Library.Models.Grade> GetGradesByStudentId(int id)
-        {
-            return Mapper.Map<IEnumerable<Library.Models.Grade>>(gradeRepository.Table
-                .Join(fileRepository.Table, x => x.FileId, y => y.FileId, (x, y) => new { Grade = x, File = y })
-                .Where(xy => xy.File.StudentId == id).ToList());
+        //public IEnumerable<Library.Models.Grade> GetGradesByStudentId(int id)
+        //{
+        //    return Mapper.Map<IEnumerable<Library.Models.Grade>>(gradeRepository.Table
+        //        .Join(fileRepository.Table, x => x.FileId, y => y.FileId, (x, y) => new { Grade = x, File = y })
+        //        .Where(xy => xy.File.StudentId == id).ToList());
 
             //var grades = gradeRepository.Table
             //    .Join(fileRepository.Table, x => x.FileId, y => y.FileId, (x, y) => new { Grade = x, File = y })
@@ -125,6 +125,6 @@ namespace Bueller.Data.Repositories
             //}
 
             //return result;
-        }
+        //}
     }
 }

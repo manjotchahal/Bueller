@@ -30,9 +30,9 @@ namespace Bueller.Library.Models
         [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
         public string Comment { get; set; }
 
-        [Required]
-        [ScaffoldColumn(false)]
-        public int FileId { get; set; }
+        //[Required]
+        //[ScaffoldColumn(false)]
+        //public int FileId { get; set; }
         public virtual File File { get; set; }
 
         public DateTime Created { get; set; }

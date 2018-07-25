@@ -21,7 +21,7 @@ namespace Bueller.Client.Controllers
             }
 
             Grade grade = new Grade();
-            grade.FileId = fileId;
+            //grade.FileId = fileId;
 
 
             return View(grade);

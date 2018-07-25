@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201807241953234_RemoveDepartmentInSubject.Designer.cs">
       <DependentUpon>201807241953234_RemoveDepartmentInSubject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807252056314_AddGradeNavigationToFile.cs" />
+    <Compile Include="Migrations\201807252056314_AddGradeNavigationToFile.Designer.cs">
+      <DependentUpon>201807252056314_AddGradeNavigationToFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807241953234_RemoveDepartmentInSubject.resx">
       <DependentUpon>201807241953234_RemoveDepartmentInSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807252056314_AddGradeNavigationToFile.resx">
+      <DependentUpon>201807252056314_AddGradeNavigationToFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
