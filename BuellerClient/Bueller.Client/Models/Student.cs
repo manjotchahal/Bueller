@@ -112,5 +112,19 @@ namespace Bueller.Client.Models
 
         [Display(Name = "Grade")]
         public double AverageGrade { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Student;
+
+            if (other == null)
+                return false;
+
+            if (FirstName != other.FirstName || MiddleName != other.MiddleName || LastName != other.LastName || PhoneNumber != other.PhoneNumber || Grade != other.Grade 
+                || Street != other.Street || City != other.City || State != other.State || Country != other.Country || Zipcode != other.Zipcode)
+                return false;
+
+            return true;
+        }
     }
 }

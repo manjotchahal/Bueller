@@ -82,5 +82,21 @@ namespace Bueller.Client.Models
 
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Teacher;
+
+            if (other == null)
+                return false;
+
+            if (Title != other.Title || FirstName != other.FirstName || MiddleName != other.MiddleName || LastName != other.LastName 
+                || PersonalPhoneNumber != other.PersonalPhoneNumber || OfficePhoneNumber != other.OfficePhoneNumber 
+                || OfficeNumber != other.OfficeNumber || Street != other.Street || City != other.City || State != other.State 
+                || Country != other.Country || Zipcode != other.Zipcode)
+                return false;
+
+            return true;
+        }
     }
 }

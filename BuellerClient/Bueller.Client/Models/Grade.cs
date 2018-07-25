@@ -38,5 +38,18 @@ namespace Bueller.Client.Models
 
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Grade;
+
+            if (other == null)
+                return false;
+
+            if (EvaluationType != other.EvaluationType || Score != other.Score || LetterGrade != other.LetterGrade || Comment != other.Comment)
+                return false;
+
+            return true;
+        }
     }
 }

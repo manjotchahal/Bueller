@@ -132,5 +132,19 @@ namespace Bueller.Client.Models
                 return EndTime.ToString(@"h\:mm") + "AM";
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Class;
+
+            if (other == null)
+                return false;
+
+            if (Name != other.Name || RoomNumber != other.RoomNumber || Section != other.Section || Credits != other.Credits || Description != other.Description
+                || StartTime != other.StartTime || EndTime != other.EndTime || Mon != other.Mon || Tues != other.Tues || Wed != other.Wed || Thurs != other.Thurs || Fri != other.Fri)
+                return false;
+
+            return true;
+        }
     }
 }
