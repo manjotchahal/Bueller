@@ -19,6 +19,7 @@ namespace Bueller.Client.Models
 
         [Required]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
         [Display(Name = "Due Date")]
         public DateTime DueDate { get; set; }
 
