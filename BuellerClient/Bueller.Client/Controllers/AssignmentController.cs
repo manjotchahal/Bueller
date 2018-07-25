@@ -148,7 +148,7 @@ namespace Bueller.Client.Controllers
             }
 
             Assignment assignment = await apiResponse.Content.ReadAsAsync<Assignment>();
-
+            TempData["Assignment"] = assignment;
             return View(assignment);
         }
 
@@ -166,28 +166,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-
-            HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Assignment/GetById/{id}");
-            HttpResponseMessage apiResponse2;
-
-            try
-            {
-                apiResponse2 = await HttpClient.SendAsync(apiRequest2);
-            }
-            catch
-            {
-                return View("Error");
-            }
-
-            if (!apiResponse2.IsSuccessStatusCode)
-            {
-                return View("Error");
-            }
-
-            Assignment assignment2 = await apiResponse2.Content.ReadAsAsync<Assignment>();
-
-
-            if (assignment.Equals(assignment2)) { return RedirectToAction("MyClasses", "Class"); }
+            if (assignment.Equals(TempData.Peek("Assignment"))) { return RedirectToAction("MyClasses", "Class"); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Assignment/AddAt/{id}");
             apiRequest.Content = new ObjectContent<Assignment>(assignment, new JsonMediaTypeFormatter());
