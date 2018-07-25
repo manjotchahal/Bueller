@@ -118,6 +118,77 @@ namespace Bueller.Client.Controllers
             return RedirectToAction("Index", "Assignment", new { id = assignment.ClassId });
         }
 
+        public async Task<ActionResult> Edit(int id)
+        {
+            if (id == 0)
+            {
+                return View("Error");
+            }
+
+            if (Request.Cookies["Role"].Value != "teacher")
+            {
+                return View("Error");
+            }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Assignment/GetById/{id}");
+            HttpResponseMessage apiResponse;
+
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            Assignment assignment = await apiResponse.Content.ReadAsAsync<Assignment>();
+
+            return View(assignment);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(int id, Assignment assignment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Error");
+            }
+
+            if (Request.Cookies["Role"].Value != "teacher")
+            {
+                return View("Error");
+            }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Assignment/AddAt/{id}");
+            apiRequest.Content = new ObjectContent<Assignment>(assignment, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("MyClasses", "Class");
+
+        }
+
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
@@ -148,14 +219,9 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            var file = await apiResponse.Content.ReadAsAsync<Assignment>();
+            var assignment = await apiResponse.Content.ReadAsAsync<Assignment>();
 
-            //if (file.Class.TeacherId != Convert.ToInt32(Request.Cookies["Id"].Value))
-            //{
-            //    return View("Error");
-            //}
-
-            return View(file);
+            return View(assignment);
         }
 
         [HttpPost, ActionName("Delete")]
