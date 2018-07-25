@@ -72,6 +72,7 @@ namespace Bueller.Client.Controllers
             }
 
             ViewBag.Role = Request.Cookies["Role"].Value;
+            TempData["ToDetailsFrom"] = "all";
             return View(classes);
         }
 
@@ -111,6 +112,7 @@ namespace Bueller.Client.Controllers
 
 
             ViewBag.Role = Request.Cookies["Role"].Value;
+            TempData["ToDetailsFrom"] = "my";
             return View(classes);
         }
 
@@ -157,6 +159,10 @@ namespace Bueller.Client.Controllers
 
             var count = await apiResponse2.Content.ReadAsAsync<int>();
             classresponse.EnrollmentCount = count;
+
+            //TempData.Keep("ToDetailsFrom");
+            ViewBag.Goto = Convert.ToString(TempData.Peek("ToDetailsFrom"));
+            //TempData.Keep("ToDetailsFrom");
 
             return View(classresponse);
         }
