@@ -34,16 +34,16 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            //if (!apiResponse.IsSuccessStatusCode)
-            //{
-            //    return View("Error");
-            //}
-
-            var classes = await apiResponse.Content.ReadAsAsync<List<Class>>();
-
+            List<Class> classes = new List<Class>();
+            if (apiResponse.IsSuccessStatusCode)
+            {
+                classes = await apiResponse.Content.ReadAsAsync<List<Class>>();
+            }
 
             var id = Request.Cookies["Id"].Value;
             var role = Request.Cookies["Role"].Value;
+
+            //create list of ids of classes student is enrolled in to use in all classes view to hide enroll link if already enrolled in class
             if (role == "student")
             {
                 HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/GetByStudentId/{id}");
