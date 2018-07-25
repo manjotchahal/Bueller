@@ -34,5 +34,18 @@ namespace Bueller.Client.Models
 
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Assignment;
+
+            if (other == null)
+                return false;
+
+            if (Name != other.Name || DueDate != other.DueDate)
+                return false;
+
+            return true;
+        }
     }
 }
