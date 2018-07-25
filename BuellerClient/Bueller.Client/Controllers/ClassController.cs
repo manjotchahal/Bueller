@@ -550,6 +550,7 @@ namespace Bueller.Client.Controllers
             var subjectselectlist = subjects2.Select(c => new SelectListItem { Text = c, Value = c }).ToList();
 
             ViewBag.Subjects = subjectselectlist;
+            classresult.SubjectName = classresult.Subject.Name;
 
             TempData["Class"] = classresult;
 
@@ -584,6 +585,7 @@ namespace Bueller.Client.Controllers
             var subject = await apiResponse2.Content.ReadAsAsync<Subject>();
 
             int oldSubject = classres.SubjectId;
+            classres.ClassId = id;
             classres.SubjectId = subject.SubjectId;
             classres.TeacherId = Convert.ToInt32(Request.Cookies.Get("Id").Value);
 
@@ -598,7 +600,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (classres.Equals(TempData.Peek("Class")) && oldSubject == subject.SubjectId) { return RedirectToAction("MyClasses", "Class"); }
+            if (classres.Equals(TempData.Peek("Class"))) { return RedirectToAction("MyClasses", "Class"); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Class/Edit/{id}");
             apiRequest.Content = new ObjectContent<Class>(classres, new JsonMediaTypeFormatter());

@@ -140,7 +140,7 @@ namespace Bueller.Client.Models
             if (other == null)
                 return false;
 
-            if (Name != other.Name || RoomNumber != other.RoomNumber || Section != other.Section || Credits != other.Credits || Description != other.Description
+            if (Name != other.Name || RoomNumber != other.RoomNumber || Section != other.Section || Credits != other.Credits || Description != other.Description || SubjectName != other.SubjectName
                 || StartTime != other.StartTime || EndTime != other.EndTime || Mon != other.Mon || Tues != other.Tues || Wed != other.Wed || Thurs != other.Thurs || Fri != other.Fri)
                 return false;
 
