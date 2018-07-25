@@ -33,7 +33,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DueDate)
             </td>
-            <td>
+            <td align="right">
                 @if (Request.Cookies["Role"].Value == "student")
                 {
                     <p>
@@ -45,6 +45,7 @@
                 {
                     <p>
                         @Html.ActionLink("View Submitted Files", "GetByIdAssignment", "File", new { id = item.AssignmentId }, null) |
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AssignmentId }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentId })
                     </p>
                 }
