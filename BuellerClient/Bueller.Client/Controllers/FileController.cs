@@ -208,11 +208,12 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            File file = new File();
-            if (apiResponse.IsSuccessStatusCode)
+            if (!apiResponse.IsSuccessStatusCode)
             {
-                file = await apiResponse.Content.ReadAsAsync<File>();
+                return View("Error");
             }
+
+            File file = await apiResponse.Content.ReadAsAsync<File>();
 
             if (file.StudentId != Convert.ToInt32(Request.Cookies["Id"].Value))
             {

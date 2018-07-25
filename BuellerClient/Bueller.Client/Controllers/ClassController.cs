@@ -34,12 +34,42 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (!apiResponse.IsSuccessStatusCode)
-            {
-                return View("Error");
-            }
+            //if (!apiResponse.IsSuccessStatusCode)
+            //{
+            //    return View("Error");
+            //}
 
             var classes = await apiResponse.Content.ReadAsAsync<List<Class>>();
+
+
+            var id = Request.Cookies["Id"].Value;
+            var role = Request.Cookies["Role"].Value;
+            if (role == "student")
+            {
+                HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/GetByStudentId/{id}");
+                HttpResponseMessage apiResponse2;
+
+                try
+                {
+                    apiResponse2 = await HttpClient.SendAsync(apiRequest2);
+                }
+                catch
+                {
+                    return View("Error");
+                }
+
+                List<Class> classes2 = new List<Class>();
+                if (apiResponse2.IsSuccessStatusCode)
+                {
+                    classes2 = await apiResponse2.Content.ReadAsAsync<List<Class>>();
+                    List<int> ids = new List<int>();
+                    foreach (var item in classes2)
+                    {
+                        ids.Add(item.ClassId);
+                    }
+                    ViewBag.Ids = ids;
+                }
+            }
 
             ViewBag.Role = Request.Cookies["Role"].Value;
             return View(classes);
