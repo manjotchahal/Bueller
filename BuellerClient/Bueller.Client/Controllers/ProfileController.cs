@@ -139,6 +139,8 @@ namespace Bueller.Client.Controllers
             if (emp == null)
                 return View("Error");
 
+            TempData["Teacher"] = emp;
+
             return View(emp);
         }
 
@@ -151,6 +153,8 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
+
+            if (teacher.Equals(TempData.Peek("Teacher"))) { return RedirectToAction("Index"); }
 
             //if (role == "teacher")
             //    employee.EmployeeType = role;
@@ -230,6 +234,8 @@ namespace Bueller.Client.Controllers
             if (stu == null)
                 return View("Error");
 
+            TempData["Student"] = stu;
+
             return View(stu);
         }
 
@@ -242,6 +248,8 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
+
+            if (student.Equals(TempData.Peek("Student"))) { return RedirectToAction("Index"); }
 
             var id = Request.Cookies["Id"].Value;
             var email = Request.Cookies["userEmailCookie"].Value;

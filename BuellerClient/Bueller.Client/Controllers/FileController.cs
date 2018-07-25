@@ -214,6 +214,7 @@ namespace Bueller.Client.Controllers
             }
 
             File file = await apiResponse.Content.ReadAsAsync<File>();
+            TempData["File"] = file;
 
             if (file.StudentId != Convert.ToInt32(Request.Cookies["Id"].Value))
             {
@@ -241,6 +242,8 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
+
+            if (file.Equals(TempData.Peek("File"))) { return RedirectToAction("MyClasses", "Class"); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/File/AddAt/{id}");
             apiRequest.Content = new ObjectContent<File>(file, new JsonMediaTypeFormatter());

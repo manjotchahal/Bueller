@@ -515,12 +515,13 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
-
-            Class classresult = new Class();
-            if (apiResponse.IsSuccessStatusCode)
+            
+            if (!apiResponse.IsSuccessStatusCode)
             {
-                classresult = await apiResponse.Content.ReadAsAsync<Class>();
+                return View("Error");
             }
+
+            Class classresult = await apiResponse.Content.ReadAsAsync<Class>();
 
             if (classresult.TeacherId != Convert.ToInt32(Request.Cookies["Id"].Value))
             {
@@ -549,6 +550,8 @@ namespace Bueller.Client.Controllers
             var subjectselectlist = subjects2.Select(c => new SelectListItem { Text = c, Value = c }).ToList();
 
             ViewBag.Subjects = subjectselectlist;
+
+            TempData["Class"] = classresult;
 
             return View(classresult);
         }
@@ -580,6 +583,7 @@ namespace Bueller.Client.Controllers
 
             var subject = await apiResponse2.Content.ReadAsAsync<Subject>();
 
+            int oldSubject = classres.SubjectId;
             classres.SubjectId = subject.SubjectId;
             classres.TeacherId = Convert.ToInt32(Request.Cookies.Get("Id").Value);
 
@@ -593,6 +597,8 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
+
+            if (classres.Equals(TempData.Peek("Class")) && oldSubject == subject.SubjectId) { return RedirectToAction("MyClasses", "Class"); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Class/Edit/{id}");
             apiRequest.Content = new ObjectContent<Class>(classres, new JsonMediaTypeFormatter());
