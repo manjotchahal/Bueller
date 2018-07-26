@@ -47,7 +47,7 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "Details", new { id = item.ClassId }, new { @style = "color:steelblue" })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Subject.Name)
@@ -74,16 +74,19 @@
             <td>
                 @if (ViewBag.Role == "student")
                 {
-                <p>
-                    @Html.ActionLink("Details", "Details", new { id = item.ClassId })@if (ViewBag.Ids == null || !(ViewBag.Ids as List<int>).Contains(item.ClassId))
-                                    {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
-                </p>
+                    <p>
+                        @*@Html.ActionLink("Details", "Details", new { id = item.ClassId })*@
+                        @if (ViewBag.Ids == null || !(ViewBag.Ids as List<int>).Contains(item.ClassId))
+                            {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
+                    </p>
                 }
-                    else
-                    {
-                    <p>@Html.ActionLink("Details", "Details", new { id = item.ClassId })@if (item.TeacherId == null)
-                                            {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}</p>
-                    }
+                else
+                {
+                    <p>@*@Html.ActionLink("Details", "Details", new { id = item.ClassId })*@
+                        @if (item.TeacherId == null)
+                            {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
+                    </p>
+                }
 
                 @*|
                     @Html.ActionLink("Assignments", "Index", "Assignment", new { id = item.ClassId }, null) |
