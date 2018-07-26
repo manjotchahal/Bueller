@@ -77,14 +77,14 @@
                     <p>
                         @*@Html.ActionLink("Details", "Details", new { id = item.ClassId })*@
                         @if (ViewBag.Ids == null || !(ViewBag.Ids as List<int>).Contains(item.ClassId))
-                            {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
+                            {<text>@Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
                     </p>
                 }
                 else
                 {
                     <p>@*@Html.ActionLink("Details", "Details", new { id = item.ClassId })*@
                         @if (item.TeacherId == null)
-                            {<text> | @Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
+                            {<text>@Html.ActionLink("Enroll", "EnrollConfirm", new { id = item.ClassId })</text>}
                     </p>
                 }
 
