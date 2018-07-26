@@ -18,6 +18,11 @@ namespace Bueller.Library.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
+        [StringLength(50, ErrorMessage = "Evaluation type cannot be more than {1} characters")]
+        public string EvaluationType { get; set; }
+
+        [Required]
         public DateTime DueDate { get; set; }
 
         [Required]

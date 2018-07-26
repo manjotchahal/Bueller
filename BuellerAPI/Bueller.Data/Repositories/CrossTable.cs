@@ -15,7 +15,6 @@ namespace Bueller.Data.Repositories
         private BookRepository bookRepository;
         private ClassRepository classRepository;
         private FileRepository fileRepository;
-        private GradeRepository gradeRepository;
         private StudentRepository studentRepository;
         private SubjectRepository subjectRepository;
         private TeacherRepository teacherRepository;
@@ -26,7 +25,6 @@ namespace Bueller.Data.Repositories
             bookRepository = unit.BookRepository();
             classRepository = unit.ClassRepository();
             fileRepository = unit.FileRepository();
-            gradeRepository = unit.GradeRepository();
             studentRepository = unit.StudentRepository();
             subjectRepository = unit.SubjectRepository();
             teacherRepository = unit.TeacherRepository();

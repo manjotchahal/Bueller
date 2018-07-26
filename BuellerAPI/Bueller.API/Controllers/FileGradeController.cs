@@ -15,12 +15,10 @@ namespace Bueller.API.Controllers
     {
         private readonly UnitOfWork unit = new UnitOfWork();
         private readonly FileRepository fileRepo;
-        private readonly GradeRepository gradeRepo;
 
         public FileGradeController()
         {
             fileRepo = unit.FileRepository();
-            gradeRepo = unit.GradeRepository();
         }
         #region File
         [HttpGet]
@@ -172,108 +170,108 @@ namespace Bueller.API.Controllers
         }
         #endregion
         #region Grade
-        [HttpGet]
-        [Route("Grade/GetAll")]
-        public IHttpActionResult GetAllGrades()
-        {
-            var grades = gradeRepo.GetAll();
-            if (!grades.Any())
-            {
-                return Content(HttpStatusCode.NotFound, "List is empty");
-            }
-            return Ok(grades);
-        }
+        //[HttpGet]
+        //[Route("Grade/GetAll")]
+        //public IHttpActionResult GetAllGrades()
+        //{
+        //    var grades = gradeRepo.GetAll();
+        //    if (!grades.Any())
+        //    {
+        //        return Content(HttpStatusCode.NotFound, "List is empty");
+        //    }
+        //    return Ok(grades);
+        //}
 
-        [HttpGet]
-        [Route("Grade/GetById/{id}")]
-        public IHttpActionResult GetGradeById(int id)
-        {
-            var grade = gradeRepo.GetById(id);
-            if (grade == null)
-            {
-                return Content(HttpStatusCode.NotFound, "Item does not exist");
-            }
-            return Ok(grade);
-        }
+        //[HttpGet]
+        //[Route("Grade/GetById/{id}")]
+        //public IHttpActionResult GetGradeById(int id)
+        //{
+        //    var grade = gradeRepo.GetById(id);
+        //    if (grade == null)
+        //    {
+        //        return Content(HttpStatusCode.NotFound, "Item does not exist");
+        //    }
+        //    return Ok(grade);
+        //}
 
-        [HttpPost]
-        [Route("Grade/Add", Name = "AddGrade")]
-        public IHttpActionResult AddGrade(Grade grade)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost]
+        //[Route("Grade/Add", Name = "AddGrade")]
+        //public IHttpActionResult AddGrade(Grade grade)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            gradeRepo.Insert(grade);
+        //    gradeRepo.Insert(grade);
 
-            return CreatedAtRoute("AddGrade", new { id = grade.GradeId }, grade);
-        }
+        //    return CreatedAtRoute("AddGrade", new { id = grade.GradeId }, grade);
+        //}
 
-        [HttpPut]
-        [Route("Grade/AddAt/{id}")]
-        public IHttpActionResult AddGradeAt(int id, Grade grade)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPut]
+        //[Route("Grade/AddAt/{id}")]
+        //public IHttpActionResult AddGradeAt(int id, Grade grade)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != grade.GradeId)
-            {
-                return BadRequest();
-            }
+        //    if (id != grade.GradeId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            try
-            {
-                gradeRepo.Update(grade);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GradeExists(id))
-                {
-                    return Content(HttpStatusCode.NotFound, "Item does not exist");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    try
+        //    {
+        //        gradeRepo.Update(grade);
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!GradeExists(id))
+        //        {
+        //            return Content(HttpStatusCode.NotFound, "Item does not exist");
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        [HttpDelete]
-        [Route("Grade/Delete/{id}")]
-        public IHttpActionResult DeleteGrade(int id)
-        {
-            var grade = gradeRepo.GetById(id);
-            if (grade == null)
-            {
-                return Content(HttpStatusCode.NotFound, "Item does not exist");
-            }
-            gradeRepo.Delete(id);
+        //[HttpDelete]
+        //[Route("Grade/Delete/{id}")]
+        //public IHttpActionResult DeleteGrade(int id)
+        //{
+        //    var grade = gradeRepo.GetById(id);
+        //    if (grade == null)
+        //    {
+        //        return Content(HttpStatusCode.NotFound, "Item does not exist");
+        //    }
+        //    gradeRepo.Delete(id);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [HttpGet]
-        [Route("Grade/GetFailing")]
-        public IHttpActionResult GetFailingGrade()
-        {
-            var grades = gradeRepo.GetFailingGrades().ToList();
-            if (!grades.Any())
-            {
-                return Content(HttpStatusCode.NotFound, "List is empty");
-            }
-            return Ok(grades);
-        }
+        //[HttpGet]
+        //[Route("Grade/GetFailing")]
+        //public IHttpActionResult GetFailingGrade()
+        //{
+        //    var grades = gradeRepo.GetFailingGrades().ToList();
+        //    if (!grades.Any())
+        //    {
+        //        return Content(HttpStatusCode.NotFound, "List is empty");
+        //    }
+        //    return Ok(grades);
+        //}
 
 
 
-        private bool GradeExists(int id)
-        {
-            return gradeRepo.GradeExists(id);
-        }
+        //private bool GradeExists(int id)
+        //{
+        //    return gradeRepo.GradeExists(id);
+        //}
         #endregion
     }
 }

@@ -135,24 +135,6 @@ namespace Bueller.Data.Repositories
             return (FileRepository)_repositories[type];
         }
 
-        public GradeRepository GradeRepository()
-        {
-            if (_repositories == null)
-            {
-                _repositories = new Dictionary<string, object>();
-            }
-
-            var type = typeof(GradeRepository).Name;
-
-            if (!_repositories.ContainsKey(type))
-            {
-                var repositoryType = typeof(GradeRepository);
-                var repositoryInstance = Activator.CreateInstance(repositoryType, _context);
-                _repositories.Add(type, repositoryInstance);
-            }
-            return (GradeRepository)_repositories[type];
-        }
-
         public StudentRepository StudentRepository()
         {
             if (_repositories == null)

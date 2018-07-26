@@ -21,6 +21,13 @@ namespace Bueller.Data.Models
         [StringLength(100, ErrorMessage = "File name cannot be more than {1} characters")]
         public string Name { get; set; }
 
+        [Range(0, 200, ErrorMessage = "Score must be between 0 and 200")]
+        public double? Score { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
+        public string Comment { get; set; }
+
         //[DataType(DataType.Upload)]     //not sure about this annotation
         //public string FileLocation { get; set; }
 
@@ -42,7 +49,7 @@ namespace Bueller.Data.Models
         [ForeignKey("StudentId")]
         public virtual Student Student { get; set; }
 
-        public virtual Grade Grade { get; set; }
+        //public virtual Grade Grade { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }

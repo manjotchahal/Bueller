@@ -96,13 +96,16 @@
     <Compile Include="Migrations\201807252056314_AddGradeNavigationToFile.Designer.cs">
       <DependentUpon>201807252056314_AddGradeNavigationToFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807261503138_SeparateGradeIntoFileAndAssignment.cs" />
+    <Compile Include="Migrations\201807261503138_SeparateGradeIntoFileAndAssignment.Designer.cs">
+      <DependentUpon>201807261503138_SeparateGradeIntoFileAndAssignment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\File.cs" />
-    <Compile Include="Models\Grade.cs" />
     <Compile Include="IdentityContext.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
@@ -114,7 +117,6 @@
     <Compile Include="Repositories\CrossTable.cs" />
     <Compile Include="Repositories\Crud.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
-    <Compile Include="Repositories\GradeRepository.cs" />
     <Compile Include="Repositories\ICrud.cs" />
     <Compile Include="Repositories\StudentRepository.cs" />
     <Compile Include="Repositories\SubjectRepository.cs" />
@@ -140,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807252056314_AddGradeNavigationToFile.resx">
       <DependentUpon>201807252056314_AddGradeNavigationToFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807261503138_SeparateGradeIntoFileAndAssignment.resx">
+      <DependentUpon>201807261503138_SeparateGradeIntoFileAndAssignment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

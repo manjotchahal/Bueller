@@ -49,7 +49,6 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\File.cs" />
-    <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\Teacher.cs" />
