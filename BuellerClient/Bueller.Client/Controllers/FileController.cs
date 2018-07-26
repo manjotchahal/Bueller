@@ -131,11 +131,31 @@ namespace Bueller.Client.Controllers
             ViewBag.ClassId = Convert.ToInt32(TempData.Peek("ClassId"));
             TempData.Keep("ClassId");
 
+            HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Assignment/GetById/{assignmentId}");
+            HttpResponseMessage apiResponse2;
+
+            try
+            {
+                apiResponse2 = await HttpClient.SendAsync(apiRequest2);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            Assignment assignment = new Assignment();
+            if (apiResponse2.IsSuccessStatusCode)
+            {
+                assignment = await apiResponse2.Content.ReadAsAsync<Assignment>();
+            }
+
+            ViewBag.PastDue = assignment.DueDate < DateTime.Now;
+
             return View(files);
         }
 
 
-        public ActionResult AddFile(int AssignmentId, int StudentId)
+        public async Task<ActionResult> AddFile(int AssignmentId, int StudentId)
         {
             if (Request.Cookies["Role"].Value != "student")
             {
@@ -146,6 +166,32 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
+
+
+            HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Assignment/GetById/{AssignmentId}");
+            HttpResponseMessage apiResponse2;
+
+            try
+            {
+                apiResponse2 = await HttpClient.SendAsync(apiRequest2);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse2.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            Assignment assignment = await apiResponse2.Content.ReadAsAsync<Assignment>();
+
+            if(assignment.DueDate < DateTime.Now)
+            {
+                return View("Error");
+            }
+
 
             File file = new File
             {

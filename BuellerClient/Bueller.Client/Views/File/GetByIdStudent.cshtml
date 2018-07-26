@@ -6,7 +6,7 @@
 
 <h2>Submitted Files</h2>
 
-<p>@Html.ActionLink("Add File", "AddFile", new { AssignmentId = ViewBag.AssignmentId, StudentId = Request.Cookies["Id"].Value })</p>
+<p>@if (!ViewBag.PastDue) {@Html.ActionLink("Add File", "AddFile", new { AssignmentId = ViewBag.AssignmentId, StudentId = Request.Cookies["Id"].Value })}</p>
 <table class="table">
     <tr>
         <th>
