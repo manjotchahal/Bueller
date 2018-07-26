@@ -166,7 +166,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (assignment.Equals(TempData.Peek("Assignment"))) { return RedirectToAction("Index", new { id = assignment.ClassId }); }
+            if (assignment.NotModified(TempData.Peek("Assignment"))) { return RedirectToAction("Index", new { id = assignment.ClassId }); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Assignment/AddAt/{id}");
             apiRequest.Content = new ObjectContent<Assignment>(assignment, new JsonMediaTypeFormatter());

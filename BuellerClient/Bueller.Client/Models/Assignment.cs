@@ -41,7 +41,7 @@ namespace Bueller.Client.Models
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
 
-        public override bool Equals(object obj)
+        public bool NotModified(object obj)
         {
             var other = obj as Assignment;
 

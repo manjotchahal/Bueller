@@ -600,7 +600,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (classres.Equals(TempData.Peek("Class"))) { return RedirectToAction("MyClasses", "Class"); }
+            if (classres.NotModified(TempData.Peek("Class"))) { return RedirectToAction("MyClasses", "Class"); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/Class/Edit/{id}");
             apiRequest.Content = new ObjectContent<Class>(classres, new JsonMediaTypeFormatter());

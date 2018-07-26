@@ -113,7 +113,7 @@ namespace Bueller.Client.Models
         [Display(Name = "Grade")]
         public double AverageGrade { get; set; }
 
-        public override bool Equals(object obj)
+        public bool NotModified(object obj)
         {
             var other = obj as Student;
 

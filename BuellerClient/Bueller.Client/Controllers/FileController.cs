@@ -252,7 +252,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (file.Equals(TempData.Peek("File"))) { return RedirectToAction("GetByIdStudent", new { studentId = file.StudentId, assignmentId = file.AssignmentId }); }
+            if (file.NotModified(TempData.Peek("File"))) { return RedirectToAction("GetByIdStudent", new { studentId = file.StudentId, assignmentId = file.AssignmentId }); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/File/AddAt/{id}");
             apiRequest.Content = new ObjectContent<File>(file, new JsonMediaTypeFormatter());
@@ -467,7 +467,7 @@ namespace Bueller.Client.Controllers
             }
 
             //add second equals
-            if (file.EqualsGraded(TempData.Peek("File"))) { return RedirectToAction("GetByIdAssignment", new { id = file.AssignmentId }); }
+            if (file.GradeNotModified(TempData.Peek("File"))) { return RedirectToAction("GetByIdAssignment", new { id = file.AssignmentId }); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/File/AddAt/{id}");
             apiRequest.Content = new ObjectContent<File>(file, new JsonMediaTypeFormatter());

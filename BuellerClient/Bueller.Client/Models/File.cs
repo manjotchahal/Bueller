@@ -39,7 +39,7 @@ namespace Bueller.Client.Models
         [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
         public DateTime? Modified { get; set; }
 
-        public override bool Equals(object obj)
+        public bool NotModified(object obj)
         {
             var other = obj as File;
 
@@ -52,7 +52,7 @@ namespace Bueller.Client.Models
             return true;
         }
 
-        public bool EqualsGraded(object obj)
+        public bool GradeNotModified(object obj)
         {
             var other = obj as File;
 

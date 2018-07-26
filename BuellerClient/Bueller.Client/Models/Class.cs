@@ -133,7 +133,7 @@ namespace Bueller.Client.Models
             }
         }
 
-        public override bool Equals(object obj)
+        public bool NotModified(object obj)
         {
             var other = obj as Class;
 

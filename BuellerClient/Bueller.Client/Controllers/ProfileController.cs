@@ -154,7 +154,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (teacher.Equals(TempData.Peek("Teacher"))) { return RedirectToAction("Index"); }
+            if (teacher.NotModified(TempData.Peek("Teacher"))) { return RedirectToAction("Index"); }
 
             //if (role == "teacher")
             //    employee.EmployeeType = role;
@@ -249,7 +249,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (student.Equals(TempData.Peek("Student"))) { return RedirectToAction("Index"); }
+            if (student.NotModified(TempData.Peek("Student"))) { return RedirectToAction("Index"); }
 
             var id = Request.Cookies["Id"].Value;
             var email = Request.Cookies["userEmailCookie"].Value;
