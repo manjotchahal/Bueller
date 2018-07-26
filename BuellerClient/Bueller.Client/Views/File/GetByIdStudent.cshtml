@@ -19,7 +19,7 @@
             Feedback
         </th>
         <th>
-            Submitted On
+            @Html.DisplayNameFor(model => model.Submitted)
         </th>
         <th></th>
     </tr>
@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Modified)
+            @Html.DisplayFor(modelItem => item.Submitted)
         </td>
         <td align="right">
             @Html.ActionLink("Edit", "Edit", new { id = item.FileId })@if (item.Score == null)

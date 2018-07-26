@@ -168,6 +168,8 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
+            file.Submitted = DateTime.Now;
+
             if (!ModelState.IsValid)
             {
                 return View("Error");
@@ -239,6 +241,8 @@ namespace Bueller.Client.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(int id, File file)
         {
+            file.Submitted = DateTime.Now;
+
             if (!ModelState.IsValid)
             {
                 return View("Error");
@@ -458,6 +462,8 @@ namespace Bueller.Client.Controllers
         [HttpPost]
         public async Task<ActionResult> Grade(int id, File file)
         {
+            file.Graded = DateTime.Now;
+
             if (!ModelState.IsValid)
             {
                 return View("Error");

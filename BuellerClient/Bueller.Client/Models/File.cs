@@ -23,6 +23,16 @@ namespace Bueller.Client.Models
         [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
         public string Comment { get; set; }
 
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Submitted On")]
+        public DateTime Submitted { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Graded On")]
+        public DateTime? Graded { get; set; }
+
         [Required]
         [ScaffoldColumn(false)]
         public int AssignmentId { get; set; }
@@ -34,9 +44,6 @@ namespace Bueller.Client.Models
         public virtual Student Student { get; set; }
 
         public DateTime Created { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
         public DateTime? Modified { get; set; }
 
         public bool NotModified(object obj)
