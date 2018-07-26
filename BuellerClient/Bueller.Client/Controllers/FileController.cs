@@ -92,6 +92,10 @@ namespace Bueller.Client.Controllers
                 files = await apiResponse.Content.ReadAsAsync<List<File>>();
             }
 
+            TempData.Keep("ClassId");
+            ViewBag.ClassId = Convert.ToInt32(TempData.Peek("ClassId"));
+            TempData.Keep("ClassId");
+
 
             return View(files);
         }
@@ -121,6 +125,11 @@ namespace Bueller.Client.Controllers
                 files = await apiResponse.Content.ReadAsAsync<List<File>>();
             }
 
+            ViewBag.AssignmentId = assignmentId;
+
+            TempData.Keep("ClassId");
+            ViewBag.ClassId = Convert.ToInt32(TempData.Peek("ClassId"));
+            TempData.Keep("ClassId");
 
             return View(files);
         }
@@ -181,7 +190,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("MyClasses", "Class");
+            return RedirectToAction("GetByIdStudent", new { studentId = file.StudentId, assignmentId = file.AssignmentId });
         }
 
         public async Task<ActionResult> Edit(int id)

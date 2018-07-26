@@ -6,6 +6,7 @@
 
 <h2>Submitted Files</h2>
 
+<p>@Html.ActionLink("Add File", "AddFile", new { AssignmentId = ViewBag.AssignmentId, StudentId = Request.Cookies["Id"].Value })</p>
 <table class="table">
     <tr>
         <th>
@@ -43,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Modified)
         </td>
         <td align="right">
-            @Html.ActionLink("Edit", "Edit", new { id = item.FileId })@if (item.Score != null)
+            @Html.ActionLink("Edit", "Edit", new { id = item.FileId })@if (item.Score == null)
             {<text> |</text>
             @Html.ActionLink("Delete", "Delete", new { id = item.FileId })}
         @*@Html.ActionLink("Details", "Details", new { id = item.FileId }) |*@
@@ -54,3 +55,9 @@
     }
 
 </table>
+
+<div>
+    <p>
+        @Html.ActionLink("Back to Assignments", "Index", "Assignment", new { id = ViewBag.ClassId }, null)
+    </p>
+</div>

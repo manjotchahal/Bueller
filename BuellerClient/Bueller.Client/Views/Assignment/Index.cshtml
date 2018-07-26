@@ -43,14 +43,14 @@
             @if (Request.Cookies["Role"].Value == "student")
             {
                 <p>
-                    @Html.ActionLink("Add File", "AddFile", "File", new { AssignmentId = item.AssignmentId, StudentId = Request.Cookies["Id"].Value }, null) |
-                    @Html.ActionLink("View Submitted Files", "GetByIdStudent", "File", new { studentId = Request.Cookies["Id"].Value, assignmentId = item.AssignmentId }, null)
+                    @*@Html.ActionLink("Add File", "AddFile", "File", new { AssignmentId = item.AssignmentId, StudentId = Request.Cookies["Id"].Value }, null) |*@
+                    @Html.ActionLink("File Submissions", "GetByIdStudent", "File", new { studentId = Request.Cookies["Id"].Value, assignmentId = item.AssignmentId }, null)
                 </p>
             }
             @if (Request.Cookies["Role"].Value == "teacher")
             {
                 <p>
-                    @Html.ActionLink("View Submitted Files", "GetByIdAssignment", "File", new { id = item.AssignmentId }, null) |
+                    @Html.ActionLink("File Submissions", "GetByIdAssignment", "File", new { id = item.AssignmentId }, null) |
                     @Html.ActionLink("Edit", "Edit", new { id = item.AssignmentId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentId })
                 </p>
