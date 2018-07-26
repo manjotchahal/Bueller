@@ -47,11 +47,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Modified)
         </td>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.FileId }) |*@
-            @Html.ActionLink("Grade File", "Grade", new { id = item.FileId }) @*|
-            @Html.ActionLink("Details", "Details", new { id=item.FileId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FileId })*@
+        <td align="right">
+            @if (item.Score == null)
+            {@Html.ActionLink("Grade", "Grade", new { id = item.FileId })}
+        else
+        {@Html.ActionLink("Edit Grade", "Grade", new { id = item.FileId })}
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.FileId }) |
+        @Html.ActionLink("Details", "Details", new { id=item.FileId }) |
+        @Html.ActionLink("Delete", "Delete", new { id=item.FileId })*@
         </td>
     </tr>
     }
