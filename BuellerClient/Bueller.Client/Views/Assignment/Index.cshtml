@@ -19,6 +19,9 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.EvaluationType)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.DueDate)
         </th>
         <th></th>
@@ -26,31 +29,34 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td align="right">
-                @if (Request.Cookies["Role"].Value == "student")
-                {
-                    <p>
-                        @Html.ActionLink("Add File", "AddFile", "File", new { AssignmentId = item.AssignmentId, StudentId = Request.Cookies["Id"].Value }, null) |
-                        @Html.ActionLink("View Submitted Files", "GetByIdStudent", "File", new { studentId = Request.Cookies["Id"].Value, assignmentId = item.AssignmentId }, null)
-                    </p>
-                }
-                @if (Request.Cookies["Role"].Value == "teacher")
-                {
-                    <p>
-                        @Html.ActionLink("View Submitted Files", "GetByIdAssignment", "File", new { id = item.AssignmentId }, null) |
-                        @Html.ActionLink("Edit", "Edit", new { id = item.AssignmentId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentId })
-                    </p>
-                }
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvaluationType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueDate)
+        </td>
+        <td align="right">
+            @if (Request.Cookies["Role"].Value == "student")
+            {
+                <p>
+                    @Html.ActionLink("Add File", "AddFile", "File", new { AssignmentId = item.AssignmentId, StudentId = Request.Cookies["Id"].Value }, null) |
+                    @Html.ActionLink("View Submitted Files", "GetByIdStudent", "File", new { studentId = Request.Cookies["Id"].Value, assignmentId = item.AssignmentId }, null)
+                </p>
+            }
+            @if (Request.Cookies["Role"].Value == "teacher")
+            {
+                <p>
+                    @Html.ActionLink("View Submitted Files", "GetByIdAssignment", "File", new { id = item.AssignmentId }, null) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AssignmentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentId })
+                </p>
+            }
+        </td>
+    </tr>
     }
 
 </table>

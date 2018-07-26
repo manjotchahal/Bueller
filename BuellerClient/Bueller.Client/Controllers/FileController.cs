@@ -243,7 +243,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            if (file.Equals(TempData.Peek("File"))) { return RedirectToAction("MyClasses", "Class"); }
+            if (file.Equals(TempData.Peek("File"))) { return RedirectToAction("GetByIdStudent", new { studentId = file.StudentId, assignmentId = file.AssignmentId }); }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/File/AddAt/{id}");
             apiRequest.Content = new ObjectContent<File>(file, new JsonMediaTypeFormatter());
@@ -264,7 +264,7 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("MyClasses", "Class");
+            return RedirectToAction("GetByIdStudent", new { studentId = file.StudentId, assignmentId = file.AssignmentId });
 
         }
 
@@ -305,6 +305,13 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
+            if (file.Score != null)
+            {
+                return View("Error");
+            }
+
+            TempData["AssignmentId"] = file.AssignmentId;
+
             return View(file);
         }
 
@@ -328,8 +335,155 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("MyClasses", "Class");
+            return RedirectToAction("GetByIdStudent", new { studentId = Convert.ToInt32(Request.Cookies["Id"].Value), assignmentId = Convert.ToInt32(TempData.Peek("AssignmentId")) });
         }
+
+        //public ActionResult Create(int fileId)
+        //{
+        //    if (Request.Cookies.Get("Role").Value != "teacher")
+        //    {
+        //        return View("Error");
+        //    }
+
+        //    Grade grade = new Grade();
+        //    //grade.FileId = fileId;
+
+
+        //    return View(grade);
+        //}
+
+        //public ActionResult Index()
+        //{
+
+
+
+        //    return View();
+        //}
+
+
+        //[HttpPost]
+        //public async Task<ActionResult> Create(Grade newGrade)
+        //{
+        //    if (Request.Cookies.Get("Role").Value != "teacher")
+        //    {
+        //        return View("Error");
+        //    }
+
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View("Error");
+        //    }
+
+
+        //    HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, $"api/Grade/Add");
+        //    apiRequest.Content = new ObjectContent<Grade>(newGrade, new JsonMediaTypeFormatter());
+
+        //    HttpResponseMessage apiResponse;
+
+
+        //    try
+        //    {
+        //        apiResponse = await HttpClient.SendAsync(apiRequest);
+        //    }
+        //    catch
+        //    {
+        //        return View("Error");
+        //    }
+
+        //    if (!apiResponse.IsSuccessStatusCode)
+        //    {
+        //        return View("Error");
+        //    }
+
+
+
+        //    return RedirectToAction("MyClasses", "Class");
+        //}
+
+
+
+        public async Task<ActionResult> Grade(int id)
+        {
+            if (id == 0)
+            {
+                return View("Error");
+            }
+
+            if (Request.Cookies.Get("Role").Value != "teacher")
+            {
+                return View("Error");
+            }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/File/GetById/{id}");
+            HttpResponseMessage apiResponse;
+
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            File file = await apiResponse.Content.ReadAsAsync<File>();
+            TempData["File"] = file;
+
+            //if (file.StudentId != Convert.ToInt32(Request.Cookies["Id"].Value))
+            //{
+            //    return View("Error");
+            //}
+
+            return View(file);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Grade(int id, File file)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Error");
+            }
+
+            if (Request.Cookies["Role"].Value != "teacher")
+            {
+                return View("Error");
+            }
+
+            //add second equals
+            if (file.EqualsGraded(TempData.Peek("File"))) { return RedirectToAction("GetByIdAssignment", new { id = file.AssignmentId }); }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, $"api/File/AddAt/{id}");
+            apiRequest.Content = new ObjectContent<File>(file, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("GetByIdAssignment", new { id = file.AssignmentId });
+
+        }
+
+
 
         //[HttpGet]
         //public async Task<ActionResult> Details(int id)

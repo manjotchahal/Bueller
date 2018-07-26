@@ -15,6 +15,9 @@
             Grade
         </th>
         <th>
+            Feedback
+        </th>
+        <th>
             Submitted On
         </th>
         <th></th>
@@ -28,19 +31,23 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @if (item.Grade == null)
-            {<text>N/A</text> }
+            @if (item.Score == null)
+            {<text>Not graded</text> }
         else
-        {@Html.DisplayFor(modelItem => item.Grade.Score)}
+        {@Html.DisplayFor(modelItem => item.Score)}
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Modified)
         </td>
         <td align="right">
-            @Html.ActionLink("Edit", "Edit", new { id = item.FileId }) |
-            @*@Html.ActionLink("Details", "Details", new { id = item.FileId }) |*@
-            @*@Html.ActionLink("Grade File", "Create", "Grade", new { fileId = item.FileId }, null) |*@
-            @Html.ActionLink("Delete", "Delete", new { id = item.FileId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.FileId })@if (item.Score != null)
+            {<text> |</text>
+            @Html.ActionLink("Delete", "Delete", new { id = item.FileId })}
+        @*@Html.ActionLink("Details", "Details", new { id = item.FileId }) |*@
+        @*@Html.ActionLink("Grade File", "Create", "Grade", new { fileId = item.FileId }, null) |*@
         </td>
     </tr>
         }
