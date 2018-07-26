@@ -147,9 +147,11 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
-            File file = new File();
-            file.AssignmentId = AssignmentId;
-            file.StudentId = StudentId;
+            File file = new File
+            {
+                AssignmentId = AssignmentId,
+                StudentId = StudentId
+            };
             return View(file);
         }
 

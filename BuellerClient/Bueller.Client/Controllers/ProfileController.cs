@@ -13,7 +13,7 @@ namespace Bueller.Client.Controllers
     public class ProfileController : ServiceController
     {
         // GET: Profile
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var role = Request.Cookies["Role"].Value;
 
