@@ -24,6 +24,10 @@ namespace Bueller.Library.Models
         [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
         public string Comment { get; set; }
 
+        public DateTime Submitted { get; set; }
+
+        public DateTime? Graded { get; set; }
+
         [Required]
         [ScaffoldColumn(false)]
         public int AssignmentId { get; set; }

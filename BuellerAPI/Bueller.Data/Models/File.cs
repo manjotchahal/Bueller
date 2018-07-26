@@ -28,6 +28,12 @@ namespace Bueller.Data.Models
         [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
         public string Comment { get; set; }
 
+        [Column(TypeName = "datetime2")]
+        public DateTime Submitted { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? Graded { get; set; }
+
         //[DataType(DataType.Upload)]     //not sure about this annotation
         //public string FileLocation { get; set; }
 
