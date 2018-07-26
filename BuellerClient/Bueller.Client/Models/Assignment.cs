@@ -18,6 +18,12 @@ namespace Bueller.Client.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Evaluation Type")]
+        [StringLength(50, ErrorMessage = "Evaluation type cannot be more than {1} characters")]
+        public string EvaluationType { get; set; }
+
+        [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
         [Display(Name = "Due Date")]
@@ -42,7 +48,7 @@ namespace Bueller.Client.Models
             if (other == null)
                 return false;
 
-            if (Name != other.Name || DueDate != other.DueDate)
+            if (Name != other.Name || EvaluationType != other.EvaluationType || DueDate != other.DueDate)
                 return false;
 
             return true;

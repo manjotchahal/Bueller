@@ -16,6 +16,13 @@ namespace Bueller.Client.Models
         [StringLength(100, ErrorMessage = "File name cannot be more than {1} characters")]
         public string Name { get; set; }
 
+        [Range(0, 200, ErrorMessage = "Score must be between 0 and 200")]
+        public double? Score { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [StringLength(500, ErrorMessage = "Comment cannot be more than {1} characters")]
+        public string Comment { get; set; }
+
         [Required]
         [ScaffoldColumn(false)]
         public int AssignmentId { get; set; }
@@ -25,8 +32,6 @@ namespace Bueller.Client.Models
         [ScaffoldColumn(false)]
         public int StudentId { get; set; }
         public virtual Student Student { get; set; }
-
-        public virtual Grade Grade { get; set; }
 
         public DateTime Created { get; set; }
 
@@ -42,6 +47,19 @@ namespace Bueller.Client.Models
                 return false;
 
             if (Name != other.Name)
+                return false;
+
+            return true;
+        }
+
+        public bool EqualsGraded(object obj)
+        {
+            var other = obj as File;
+
+            if (other == null)
+                return false;
+
+            if (Name != other.Name || Score != other.Score || Comment != other.Comment)
                 return false;
 
             return true;
