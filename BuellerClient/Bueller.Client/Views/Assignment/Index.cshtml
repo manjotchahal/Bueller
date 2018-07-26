@@ -36,7 +36,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.EvaluationType)
         </td>
-        <td>
+        <td style="color:@if (DateTime.Now > item.DueDate) {<text>red</text> } ">
             @Html.DisplayFor(modelItem => item.DueDate)
         </td>
         <td align="right">
