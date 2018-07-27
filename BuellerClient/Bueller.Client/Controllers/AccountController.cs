@@ -105,7 +105,6 @@ namespace Bueller.Client.Controllers
         public async Task<ActionResult> RegisterStudent()
         {
             Student student = (Student)TempData["student"];
-            Account account = (Account)TempData["account"];
 
             HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Post, $"api/Student/Add");
             apiRequest2.Content = new ObjectContent<Student>(student, new JsonMediaTypeFormatter());
@@ -117,87 +116,13 @@ namespace Bueller.Client.Controllers
             }
             catch
             {
-                //here delete created identity account if student creation problem
-                HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"api/Account/Delete");
-                apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
-                HttpResponseMessage apiResponse;
-                try
-                {
-                    apiResponse = await HttpClient.SendAsync(apiRequest);
-                }
-                catch
-                {
-                    return View("Error");
-                }
-
-                if (!apiResponse.IsSuccessStatusCode)
-                {
-                    if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
-                    {
-                        return View("Error");
-                    }
-                    ViewBag.Message = "Not logged in!";
-                }
-
-                if (Request.Cookies["userEmailCookie"] != null)
-                {
-                    var c = new HttpCookie("userEmailCookie");
-                    var c2 = new HttpCookie("Id");
-                    var c3 = new HttpCookie("Role");
-                    c3.Expires = DateTime.Now.AddDays(-1);
-                    c2.Expires = DateTime.Now.AddDays(-1);
-                    c.Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies.Add(c3);
-                    Response.Cookies.Add(c2);
-                    Response.Cookies.Add(c);
-                }
-
-                PassCookiesToClient(apiResponse);
-                //return RedirectToAction("Index", "Home");
-
+                await DeleteAccount();
                 return View("Error");
             }
 
             if (!apiResponse2.IsSuccessStatusCode)
             {
-                //here delete created identity account if student creation problem
-                HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"api/Account/Delete");
-                apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
-                HttpResponseMessage apiResponse;
-                try
-                {
-                    apiResponse = await HttpClient.SendAsync(apiRequest);
-                }
-                catch
-                {
-                    return View("Error");
-                }
-
-                if (!apiResponse.IsSuccessStatusCode)
-                {
-                    if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
-                    {
-                        return View("Error");
-                    }
-                    ViewBag.Message = "Not logged in!";
-                }
-
-                if (Request.Cookies["userEmailCookie"] != null)
-                {
-                    var c = new HttpCookie("userEmailCookie");
-                    var c2 = new HttpCookie("Id");
-                    var c3 = new HttpCookie("Role");
-                    c3.Expires = DateTime.Now.AddDays(-1);
-                    c2.Expires = DateTime.Now.AddDays(-1);
-                    c.Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies.Add(c3);
-                    Response.Cookies.Add(c2);
-                    Response.Cookies.Add(c);
-                }
-
-                PassCookiesToClient(apiResponse);
-                //return RedirectToAction("Index", "Home");
-
+                await DeleteAccount();
                 return View("Error");
             }
 
@@ -258,7 +183,6 @@ namespace Bueller.Client.Controllers
         public async Task<ActionResult> RegisterTeacher()
         {
             Teacher teacher = (Teacher)TempData["teacher"];
-            Account account = (Account)TempData["account"];
 
             HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Post, $"api/Teacher/Add");
             apiRequest2.Content = new ObjectContent<Teacher>(teacher, new JsonMediaTypeFormatter());
@@ -270,87 +194,13 @@ namespace Bueller.Client.Controllers
             }
             catch
             {
-                //here delete created identity account if teacher creation problem
-                HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"api/Account/Delete");
-                apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
-                HttpResponseMessage apiResponse;
-                try
-                {
-                    apiResponse = await HttpClient.SendAsync(apiRequest);
-                }
-                catch
-                {
-                    return View("Error");
-                }
-
-                if (!apiResponse.IsSuccessStatusCode)
-                {
-                    if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
-                    {
-                        return View("Error");
-                    }
-                    ViewBag.Message = "Not logged in!";
-                }
-
-                if (Request.Cookies["userEmailCookie"] != null)
-                {
-                    var c = new HttpCookie("userEmailCookie");
-                    var c2 = new HttpCookie("Id");
-                    var c3 = new HttpCookie("Role");
-                    c3.Expires = DateTime.Now.AddDays(-1);
-                    c2.Expires = DateTime.Now.AddDays(-1);
-                    c.Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies.Add(c3);
-                    Response.Cookies.Add(c2);
-                    Response.Cookies.Add(c);
-                }
-
-                PassCookiesToClient(apiResponse);
-                //return RedirectToAction("Index", "Home");
-
+                await DeleteAccount();
                 return View("Error");
             }
 
             if (!apiResponse2.IsSuccessStatusCode)
             {
-                //here delete created identity account if teacher creation problem
-                HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"api/Account/Delete");
-                apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
-                HttpResponseMessage apiResponse;
-                try
-                {
-                    apiResponse = await HttpClient.SendAsync(apiRequest);
-                }
-                catch
-                {
-                    return View("Error");
-                }
-
-                if (!apiResponse.IsSuccessStatusCode)
-                {
-                    if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
-                    {
-                        return View("Error");
-                    }
-                    ViewBag.Message = "Not logged in!";
-                }
-
-                if (Request.Cookies["userEmailCookie"] != null)
-                {
-                    var c = new HttpCookie("userEmailCookie");
-                    var c2 = new HttpCookie("Id");
-                    var c3 = new HttpCookie("Role");
-                    c3.Expires = DateTime.Now.AddDays(-1);
-                    c2.Expires = DateTime.Now.AddDays(-1);
-                    c.Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies.Add(c3);
-                    Response.Cookies.Add(c2);
-                    Response.Cookies.Add(c);
-                }
-
-                PassCookiesToClient(apiResponse);
-                //return RedirectToAction("Index", "Home");
-
+                await DeleteAccount();
                 return View("Error");
             }
 
@@ -448,6 +298,49 @@ namespace Bueller.Client.Controllers
 
             PassCookiesToClient(apiResponse);
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<ActionResult> DeleteAccount()
+        {
+            //here delete created identity account if student/teacher creation problem
+            Account account = (Account)TempData["account"];
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"api/Account/Delete");
+            apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
+                {
+                    return View("Error");
+                }
+                ViewBag.Message = "Not logged in!";
+            }
+
+            if (Request.Cookies["userEmailCookie"] != null)
+            {
+                var c = new HttpCookie("userEmailCookie");
+                var c2 = new HttpCookie("Id");
+                var c3 = new HttpCookie("Role");
+                c3.Expires = DateTime.Now.AddDays(-1);
+                c2.Expires = DateTime.Now.AddDays(-1);
+                c.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(c3);
+                Response.Cookies.Add(c2);
+                Response.Cookies.Add(c);
+            }
+
+            PassCookiesToClient(apiResponse);
+            return new EmptyResult();
+            //return RedirectToAction("Index", "Home");
         }
 
         public async Task AddEmployeeCookie(string email)
