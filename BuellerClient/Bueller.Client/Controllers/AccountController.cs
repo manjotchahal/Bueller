@@ -219,11 +219,6 @@ namespace Bueller.Client.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(Account account)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Error");
-            }
-
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Account/Login");
             apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
 
