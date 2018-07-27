@@ -94,6 +94,48 @@ namespace Bueller.API.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        [Route("Delete")]
+        public IHttpActionResult Delete(Account account)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            if (GetLoggedInEmail() != account.Email)
+            {
+                return BadRequest("Deleting user other than self");
+            }
+
+            //if (!role.Equals("student") && !role.Equals("teacher")/* && !role.Equals("employee")*/)
+            //{
+            //    return BadRequest(role);
+            //}
+
+            // actually register
+            var userStore = new UserStore<IdentityUser>(new IdentityContext());
+            var userManager = new UserManager<IdentityUser>(userStore);
+            var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Email);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            userManager.RemoveClaim(user.Id, userManager.GetClaims(user.Id).FirstOrDefault());
+            userManager.Delete(user);
+
+            //login
+            //var authManager = Request.GetOwinContext().Authentication;
+            //var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
+
+            //authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
+
+            Request.GetOwinContext().Authentication.SignOut(WebApiConfig.AuthenticationType);
+            return Ok();
+        }
+
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
@@ -190,6 +232,17 @@ namespace Bueller.API.Controllers
             string role = user.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value.ToString()).FirstOrDefault();
             //return Ok($"Authenticated {username}, with roles: [{string.Join(", ", roles)}]!");
             return Ok($"Authenticated {username}/nRole: {role}");
+        }
+
+        public string GetLoggedInEmail()
+        {
+            // get the currently logged-in user
+            var user = Request.GetOwinContext().Authentication.User;
+
+            // get his username
+            string username = user.Identity.Name;
+
+            return username;
         }
 
         //in uri have email and type of account to look for (student/employee)
