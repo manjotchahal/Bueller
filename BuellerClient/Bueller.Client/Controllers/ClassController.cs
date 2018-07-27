@@ -418,16 +418,27 @@ namespace Bueller.Client.Controllers
                 return View("Error");
             }
 
+            List<string> subjects = new List<string>();
             if (!apiResponse.IsSuccessStatusCode)
             {
-                return View("Error");
+                subjects = null;
+            }
+            else { subjects = await apiResponse.Content.ReadAsAsync<List<string>>(); }
+
+            
+            if (subjects != null)
+            {
+                var subjects2 = subjects.OrderBy(q => q);
+                var subjectselectlist = subjects2.Select(c => new SelectListItem { Text = c, Value = c }).ToList();
+                ViewBag.Subjects = subjectselectlist;
+                TempData["Subjects"] = true;
+            }
+            else
+            {
+                ViewBag.Subjects = null;
+                TempData["Subjects"] = false;
             }
 
-            var subjects = await apiResponse.Content.ReadAsAsync<List<string>>();
-            var subjects2 = subjects.OrderBy(q => q);
-            var subjectselectlist = subjects2.Select(c => new SelectListItem { Text = c, Value = c }).ToList();
-
-            ViewBag.Subjects = subjectselectlist;
             return View();
         }
 
@@ -438,7 +449,38 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
-            HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/Subject/GetByName/{newClass.SubjectName}");
+
+            bool hasSubjects = (bool)TempData["Subjects"];
+
+            HttpRequestMessage apiRequest2;
+            if (hasSubjects)
+            {
+                apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/Subject/GetByName/{newClass.SubjectName}");
+                
+            }
+            else
+            {
+                HttpRequestMessage apiRequest3 = CreateRequestToService(HttpMethod.Post, $"api/Class/Subject/Add");
+                Subject newSubject = new Subject() { Name = newClass.SubjectName };
+                apiRequest3.Content = new ObjectContent<Subject>(newSubject, new JsonMediaTypeFormatter());
+                HttpResponseMessage apiResponse3;
+
+                try
+                {
+                    apiResponse3 = await HttpClient.SendAsync(apiRequest3);
+                }
+                catch
+                {
+                    return View("Error");
+                }
+
+                if (!apiResponse3.IsSuccessStatusCode)
+                {
+                    return View("Error");
+                }
+
+                apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/Subject/GetByName/{newClass.SubjectName}");
+            }
             HttpResponseMessage apiResponse2;
 
             try
