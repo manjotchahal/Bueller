@@ -20,8 +20,51 @@ namespace Bueller.Client.Controllers
         //ability to delete user accounts...
         //prevent register/additional login once logged in... important? and hide logout when not logged in?...
         [HttpPost]
-        public async Task<ActionResult> Register(Account account, string role)
+        public ActionResult Register(Account account, string role)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Error");
+            }
+
+            if (role == "student")
+            {
+                TempData["account"] = account;
+                return RedirectToAction("RegisterStudentInfo", "Account");
+            }
+            else
+            {
+                TempData["account"] = account;
+                return RedirectToAction("RegisterTeacherInfo", "Account"); //, new { email = account.Email/*, employeetype = role*/ });//or email
+            }
+        }
+
+        public ActionResult RegisterStudentInfo(/*string email*/)
+        {
+            //AccountStudentViewModel model = (AccountStudentViewModel)TempData["student"];
+            return View();
+        }
+
+        //not safe to pass role in url.. potential security problem if url modified after registering with role
+        //solution: separate register employee and teacher
+        //but also emails... use tempdata instead of passing data in URL???.... do later if time
+        [Route("RegisterTeacherInfo")]
+        public ActionResult RegisterTeacherInfo(/*string email*//*, string employeetype*/)
+        {
+            //AccountTeacherViewModel model = (AccountTeacherViewModel)TempData["teacher"];
+            return View();
+        }
+
+        //prevent registering account only and backing out of creating corresponding model...
+        // change register/login steps?
+        //tie in account to person models
+        [HttpPost]
+        public async Task<ActionResult> RegisterStudentInfo(Student student)
+        {
+            string role = "student";
+            Account account = (Account)TempData["account"];
+            student.Email = account.Email;
+
             if (!ModelState.IsValid)
             {
                 return View("Error");
@@ -48,67 +91,40 @@ namespace Bueller.Client.Controllers
             PassCookiesToClient(apiResponse);
 
             HttpCookie userEmailCookie = new HttpCookie("userEmailCookie");
-            userEmailCookie.Value = account.Email;
+            userEmailCookie.Value = student.Email;
 
             Response.Cookies.Add(userEmailCookie);
 
-            if (role == "student")
-            {
-                return RedirectToAction("RegisterStudentInfo", "Account", new { email = account.Email });
-            }
-            else
-            {
-                //return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email});//or email
-                return RedirectToAction("RegisterTeacherInfo", "Account", new { email = account.Email/*, employeetype = role*/ });//or email
-            }
+            TempData["student"] = student;
+
+            return RedirectToAction("RegisterStudent", "Account");
         }
 
-        public ActionResult RegisterStudentInfo(string email)
+        public async Task<ActionResult> RegisterStudent()
         {
-            return View();
-        }
+            Student student = (Student)TempData["student"];
 
-        //not safe to pass role in url.. potential security problem if url modified after registering with role
-        //solution: separate register employee and teacher
-        //but also emails... use tempdata instead of passing data in URL???.... do later if time
-        [Route("RegisterTeacherInfo")]
-        public ActionResult RegisterTeacherInfo(string email/*, string employeetype*/)
-        {
-            //ViewBag.Type = employeetype;
-            //TempData["Role"] = employeetype;
-            return View();
-        }
+            HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Post, $"api/Student/Add");
+            apiRequest2.Content = new ObjectContent<Student>(student, new JsonMediaTypeFormatter());
 
-        //prevent registering account only and backing out of creating corresponding model...
-        // change register/login steps?
-        //tie in account to person models
-        [HttpPost]
-        public async Task<ActionResult> RegisterStudentInfo(Student student)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Error");
-            }
-
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, $"api/Student/Add");
-            apiRequest.Content = new ObjectContent<Student>(student, new JsonMediaTypeFormatter());
-
-            HttpResponseMessage apiResponse;
+            HttpResponseMessage apiResponse2;
             try
             {
-                apiResponse = await HttpClient.SendAsync(apiRequest);
+                apiResponse2 = await HttpClient.SendAsync(apiRequest2);
             }
             catch
             {
+                //here delete created identity account if student creation problem
                 return View("Error");
             }
 
-            if (!apiResponse.IsSuccessStatusCode)
+            if (!apiResponse2.IsSuccessStatusCode)
             {
+                //here delete created identity account if student creation problem
                 return View("Error");
             }
 
-            PassCookiesToClient(apiResponse);
+            PassCookiesToClient(apiResponse2);
 
             return RedirectToAction("Index", "Home");
         }
@@ -122,13 +138,17 @@ namespace Bueller.Client.Controllers
             //    employee.EmployeeType = "teacher";
             //}
 
+            string role = "teacher";
+            Account account = (Account)TempData["account"];
+            teacher.Email = account.Email;
+
             if (!ModelState.IsValid)
             {
                 return View("Error");
             }
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, $"api/Teacher/Add");
-            apiRequest.Content = new ObjectContent<Teacher>(teacher, new JsonMediaTypeFormatter());
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, $"api/Account/RegisterRole/{role}");
+            apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
             try
@@ -146,6 +166,42 @@ namespace Bueller.Client.Controllers
             }
 
             PassCookiesToClient(apiResponse);
+
+            HttpCookie userEmailCookie = new HttpCookie("userEmailCookie");
+            userEmailCookie.Value = teacher.Email;
+
+            Response.Cookies.Add(userEmailCookie);
+
+            TempData["teacher"] = teacher;
+
+            return RedirectToAction("RegisterTeacher", "Account");
+        }
+
+        public async Task<ActionResult> RegisterTeacher()
+        {
+            Teacher teacher = (Teacher)TempData["teacher"];
+
+            HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Post, $"api/Teacher/Add");
+            apiRequest2.Content = new ObjectContent<Teacher>(teacher, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse2;
+            try
+            {
+                apiResponse2 = await HttpClient.SendAsync(apiRequest2);
+            }
+            catch
+            {
+                //here delete created identity account if teacher creation problem
+                return View("Error");
+            }
+
+            if (!apiResponse2.IsSuccessStatusCode)
+            {
+                //here delete created identity account if teacher creation problem
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse2);
 
             return RedirectToAction("Index", "Home");
         }

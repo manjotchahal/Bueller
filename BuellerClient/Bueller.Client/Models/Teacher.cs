@@ -62,7 +62,6 @@ namespace Bueller.Client.Models
         [RegularExpression("[0-9]{5}", ErrorMessage = "Zipcode must be 5 digits")]
         public string Zipcode { get; set; }
 
-        [Required]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(".{1,200}[@].{1,200}[.].{1,5}", ErrorMessage = "Email address cannot have more than 200 characters on each side of @")]
         public string Email { get; set; }
