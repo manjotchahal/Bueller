@@ -17,5 +17,12 @@ namespace Bueller.Client.Models
         [DataType(DataType.Password)]
         [StringLength(64, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 64 characters")]
         public string Password { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [StringLength(64, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 64 characters")]
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
+        public string ConfirmPassword { get; set; }
     }
 }
