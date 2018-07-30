@@ -429,7 +429,10 @@ namespace Bueller.Client.Controllers
             if (subjects != null)
             {
                 var subjects2 = subjects.OrderBy(q => q);
-                var subjectselectlist = subjects2.Select(c => new SelectListItem { Text = c, Value = c }).ToList();
+                List<string> subjects3 = subjects2.ToList();
+                TempData["SubjectNames"] = subjects3;
+                subjects3.Add("Add Subject");
+                var subjectselectlist = subjects3.Select(c => new SelectListItem { Text = c, Value = c }).ToList();
                 ViewBag.Subjects = subjectselectlist;
                 TempData["Subjects"] = true;
             }
@@ -455,8 +458,38 @@ namespace Bueller.Client.Controllers
             HttpRequestMessage apiRequest2;
             if (hasSubjects)
             {
-                apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/Subject/GetByName/{newClass.SubjectName}");
-                
+                if(newClass.SubjectName == "Add Subject")
+                {
+                    if (newClass.NewSubject == null)
+                    { return View("Error"); }
+                    else
+                    {
+                        List<string> subjectNames = (List<string>)TempData["SubjectNames"];
+                        if (!subjectNames.Contains(newClass.NewSubject, StringComparer.OrdinalIgnoreCase))
+                        {
+                            HttpRequestMessage apiRequest3 = CreateRequestToService(HttpMethod.Post, $"api/Class/Subject/Add");
+                            Subject newSubject = new Subject() { Name = newClass.NewSubject };
+                            apiRequest3.Content = new ObjectContent<Subject>(newSubject, new JsonMediaTypeFormatter());
+                            HttpResponseMessage apiResponse3;
+
+                            try
+                            {
+                                apiResponse3 = await HttpClient.SendAsync(apiRequest3);
+                            }
+                            catch
+                            {
+                                return View("Error");
+                            }
+
+                            if (!apiResponse3.IsSuccessStatusCode)
+                            {
+                                return View("Error");
+                            }
+                        }
+                        apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/Subject/GetByName/{newClass.NewSubject}");
+                    }
+                }
+                else { apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/Subject/GetByName/{newClass.SubjectName}"); }
             }
             else
             {

@@ -89,6 +89,9 @@ namespace Bueller.Client.Models
         [Display(Name = "Subject")]
         public string SubjectName { get; set; }
 
+        [Display(Name = "New Subject")]
+        public string NewSubject { get; set; }
+
         [Display(Name = "Enrollment Count")]
         public int EnrollmentCount { get; set; }
 
