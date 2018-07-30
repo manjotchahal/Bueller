@@ -43,26 +43,31 @@ namespace Bueller.Client.Controllers
             var id = Request.Cookies["Id"].Value;
             var role = Request.Cookies["Role"].Value;
 
-            //create list of ids of classes student is enrolled in to use in all classes view to hide enroll link if already enrolled in class
+            HttpRequestMessage apiRequest2;
             if (role == "student")
+                apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/GetByStudentId/{id}");
+            else
+                apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/GetByTeacherId/{id}");
+
+            HttpResponseMessage apiResponse2;
+            try
             {
-                HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/GetByStudentId/{id}");
-                HttpResponseMessage apiResponse2;
+                apiResponse2 = await HttpClient.SendAsync(apiRequest2);
+            }
+            catch
+            {
+                return View("Error");
+            }
 
-                try
-                {
-                    apiResponse2 = await HttpClient.SendAsync(apiRequest2);
-                }
-                catch
-                {
-                    return View("Error");
-                }
+            List<Class> classes2 = new List<Class>();
+            if (apiResponse2.IsSuccessStatusCode)
+            {
+                classes2 = await apiResponse2.Content.ReadAsAsync<List<Class>>();
+                TempData["ConflictComparison"] = classes2;
 
-                List<Class> classes2 = new List<Class>();
-                if (apiResponse2.IsSuccessStatusCode)
+                //create list of ids of classes student is enrolled in to use in all classes view to hide enroll link if already enrolled in class
+                if (role == "student")
                 {
-                    classes2 = await apiResponse2.Content.ReadAsAsync<List<Class>>();
-                    TempData["StudentClasses"] = classes2;
                     List<int> ids = new List<int>();
                     foreach (var item in classes2)
                     {
@@ -200,18 +205,15 @@ namespace Bueller.Client.Controllers
             TempData["ConfirmedEnroll"] = true;
 
             //check for overlap with enrolled classes to prevent enrolling
-            List <Class> myClasses = (List<Class>)TempData.Peek("StudentClasses");
-            if (Request.Cookies.Get("Role").Value == "student")
-            { 
-                foreach (var item in myClasses)
+            List <Class> myClasses = (List<Class>)TempData.Peek("ConflictComparison");
+            foreach (var item in myClasses)
+            {
+                if (item.HasSameClassDay(classresponse))
                 {
-                    if (item.HasSameClassDay(classresponse))
+                    if ((item.StartTime <= classresponse.StartTime && classresponse.StartTime < item.EndTime) || (item.StartTime < classresponse.EndTime && classresponse.EndTime <= item.EndTime))
                     {
-                        if ((item.StartTime <= classresponse.StartTime && classresponse.StartTime <= item.EndTime) || (item.StartTime <= classresponse.EndTime && classresponse.EndTime <= item.EndTime))
-                        {
-                            TempData["Error"] = $"Class time conflicts with enrolled class: {item.Name}";
-                            return View("Error");
-                        }
+                        TempData["Error"] = $"Class time conflicts with enrolled class: {item.Name}";
+                        return View("Error");
                     }
                 }
             }
