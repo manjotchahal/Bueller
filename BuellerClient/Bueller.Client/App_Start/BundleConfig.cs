@@ -25,6 +25,14 @@ namespace Bueller.Client
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mvcfoolproof").Include(
+            "~/Scripts/MicrosoftAjax.js",
+            "~/Scripts/MicrosoftMvcAjax.js",
+            "~/Scripts/MicrosoftMvcValidation.js",
+            "~/Client Scripts/mvcfoolproof.unobtrusive.min.js",
+            "~/Client Scripts/MvcFoolproofJQueryValidation.min.js",
+            "~/Client Scripts/MvcFoolproofValidation.min.js"));
         }
     }
 }
