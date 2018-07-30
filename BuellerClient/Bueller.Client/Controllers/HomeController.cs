@@ -84,6 +84,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> IndexCalendar()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             int id = Convert.ToInt32(Request.Cookies["Id"].Value);
             string role = Request.Cookies["Role"].Value;
 

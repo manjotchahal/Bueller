@@ -69,6 +69,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> GetByIdAssignment(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (id == 0)
             {
                 return View("Error");
@@ -102,6 +108,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> GetByIdStudent(int studentId, int assignmentId)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (studentId == 0 || assignmentId == 0)
             {
                 return View("Error");
@@ -157,6 +169,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> AddFile(int AssignmentId, int StudentId)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (Request.Cookies["Role"].Value != "student")
             {
                 return View("Error");
@@ -245,6 +263,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (id == 0)
             {
                 return View("Error");
@@ -332,6 +356,12 @@ namespace Bueller.Client.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (id == 0)
             {
                 return View("Error");
@@ -466,6 +496,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> Grade(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (id == 0)
             {
                 return View("Error");

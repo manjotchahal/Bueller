@@ -15,6 +15,12 @@ namespace Bueller.Client.Controllers
     {
         public ActionResult Register()
         {
+            if (Request.Cookies["AuthTestCookie"] != null)
+            {
+                TempData["Error"] = "Already logged in!";
+                return View("Error");
+            }
+
             return View();
         }
 
@@ -27,6 +33,8 @@ namespace Bueller.Client.Controllers
             {
                 return View("Error");
             }
+
+            TempData["ConfirmedRegister"] = true;
 
             if (role == "student")
             {
@@ -42,7 +50,18 @@ namespace Bueller.Client.Controllers
 
         public ActionResult RegisterStudentInfo(/*string email*/)
         {
+            if (Request.Cookies["AuthTestCookie"] != null)
+            {
+                TempData["Error"] = "Already logged in!";
+                return View("Error");
+            }
+
             //AccountStudentViewModel model = (AccountStudentViewModel)TempData["student"];
+            if (TempData["ConfirmedRegister"] == null)
+            {
+                TempData["Error"] = "Did not register account";
+                return View("Error");
+            }
             return View();
         }
 
@@ -52,7 +71,18 @@ namespace Bueller.Client.Controllers
         [Route("RegisterTeacherInfo")]
         public ActionResult RegisterTeacherInfo(/*string email*//*, string employeetype*/)
         {
+            if (Request.Cookies["AuthTestCookie"] != null)
+            {
+                TempData["Error"] = "Already logged in!";
+                return View("Error");
+            }
+
             //AccountTeacherViewModel model = (AccountTeacherViewModel)TempData["teacher"];
+            if (TempData["ConfirmedRegister"] == null)
+            {
+                TempData["Error"] = "Did not register account";
+                return View("Error");
+            }
             return View();
         }
 
@@ -98,12 +128,19 @@ namespace Bueller.Client.Controllers
 
             TempData["student"] = student;
             TempData["account"] = account;
+            TempData["ConfirmedRegisterAccount"] = true;
 
             return RedirectToAction("RegisterStudent", "Account");
         }
 
         public async Task<ActionResult> RegisterStudent()
         {
+            if (TempData["ConfirmedRegisterAccount"] == null)
+            {
+                TempData["Error"] = "Did not register account";
+                return View("Error");
+            }
+
             Student student = (Student)TempData["student"];
 
             HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Post, $"api/Student/Add");
@@ -176,12 +213,19 @@ namespace Bueller.Client.Controllers
 
             TempData["teacher"] = teacher;
             TempData["account"] = account;
+            TempData["ConfirmedRegisterAccount"] = true;
 
             return RedirectToAction("RegisterTeacher", "Account");
         }
 
         public async Task<ActionResult> RegisterTeacher()
         {
+            if (TempData["ConfirmedRegisterAccount"] == null)
+            {
+                TempData["Error"] = "Did not register account";
+                return View("Error");
+            }
+
             Teacher teacher = (Teacher)TempData["teacher"];
 
             HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Post, $"api/Teacher/Add");
@@ -212,6 +256,12 @@ namespace Bueller.Client.Controllers
         // GET: Account/Login
         public ActionResult Login()
         {
+            if (Request.Cookies["AuthTestCookie"] != null)
+            {
+                TempData["Error"] = "Already logged in!";
+                return View("Error");
+            }
+
             return View();
         }
 

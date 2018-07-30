@@ -6,12 +6,17 @@
 
 <h2>Assignments</h2>
 
-@if (Request.Cookies["Role"].Value == "teacher")
+@if (Request.Cookies["AuthTestCookie"] != null)
 {
-    <p>
-        @Html.ActionLink("Create Assignment", "Create")
-    </p>
+    if (Request.Cookies["Role"].Value == "teacher")
+    {
+        <p>
+            @Html.ActionLink("Create Assignment", "Create")
+        </p>
+    }
 }
+
+
 
 <table class="table">
     <tr>
@@ -61,17 +66,20 @@
 
 </table>
 
-@if (Request.Cookies["Role"].Value == "student")
+@if (Request.Cookies["AuthTestCookie"] != null)
 {
-    if (ViewBag.HasGrades == true)
+    if (Request.Cookies["Role"].Value == "student")
     {
-        <text>Overall: @ViewBag.AverageGrade</text>;
+        if (ViewBag.HasGrades == true)
+        {
+            <text>Overall: @ViewBag.AverageGrade</text>;
+        }
     }
 }
 
 
-<div>
-    <p>
-        @Html.ActionLink("Back to Classes", "MyClasses", "Class")
-    </p>
-</div>
+    <div>
+        <p>
+            @Html.ActionLink("Back to Classes", "MyClasses", "Class")
+        </p>
+    </div>

@@ -21,6 +21,11 @@ namespace Bueller.Client.Controllers
         [HttpGet]
         public async Task<ViewResult> Index()
         {
+            if(Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "api/Class/GetAll");
             HttpResponseMessage apiResponse;
@@ -86,6 +91,11 @@ namespace Bueller.Client.Controllers
         [HttpGet]
         public async Task<ViewResult> MyClasses()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
 
             var id = Request.Cookies["Id"].Value;
             var role = Request.Cookies["Role"].Value;
@@ -126,6 +136,12 @@ namespace Bueller.Client.Controllers
         [HttpGet]
         public async Task<ViewResult> Details(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Class/GetById/{id}");
 
             HttpResponseMessage apiResponse;
@@ -181,6 +197,11 @@ namespace Bueller.Client.Controllers
             //{
             //    return View("Error");
             //}
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Class/GetById/{id}");
 
@@ -261,6 +282,12 @@ namespace Bueller.Client.Controllers
             //{
             //    return View("Error");
             //}
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (TempData["ConfirmedEnroll"] == null)
             {
                 TempData["Error"] = "Did not confirm enrollment";
@@ -308,6 +335,11 @@ namespace Bueller.Client.Controllers
             //{
             //    return View("Error");
             //}
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Class/GetById/{id}");
 
@@ -367,6 +399,11 @@ namespace Bueller.Client.Controllers
             //{
             //    return View("Error");
             //}
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
 
             var personId = Convert.ToInt32(Request.Cookies.Get("Id").Value);
             HttpRequestMessage apiRequest;
@@ -427,6 +464,12 @@ namespace Bueller.Client.Controllers
         {
             //Assignment assignment = new Assignment();
             //assignment.ClassId = ClassId;
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
 
             if (Request.Cookies.Get("Role").Value != "teacher")
             {
@@ -596,6 +639,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (id == 0)
             {
                 return View("Error");

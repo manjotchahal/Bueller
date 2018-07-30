@@ -15,6 +15,12 @@ namespace Bueller.Client.Controllers
         // GET: Profile
         public ActionResult Index()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             var role = Request.Cookies["Role"].Value;
 
             if (role == "teacher"/* || role == "employee"*/)
@@ -34,6 +40,12 @@ namespace Bueller.Client.Controllers
         // GET: Profile/Details/5
         public async Task<ActionResult> Teacher()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             var role = Request.Cookies["Role"].Value;
 
             if (role != "teacher"/* && role != "employee"*/)
@@ -71,6 +83,12 @@ namespace Bueller.Client.Controllers
         // GET: Profile/Details/5
         public async Task<ActionResult> Student()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             var role = Request.Cookies["Role"].Value;
 
             if (role != "student")
@@ -108,6 +126,12 @@ namespace Bueller.Client.Controllers
         // GET: Profile/Edit/5
         public async Task<ActionResult> EditTeacher()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             var role = Request.Cookies["Role"].Value;
 
             if (role != "teacher"/* && role != "employee"*/)
@@ -203,6 +227,12 @@ namespace Bueller.Client.Controllers
         // GET: Profile/Edit/5
         public async Task<ActionResult> EditStudent()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             var role = Request.Cookies["Role"].Value;
 
             if (role != "student")

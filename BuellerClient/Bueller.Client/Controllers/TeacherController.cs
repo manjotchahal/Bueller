@@ -19,6 +19,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> GetStudents()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             int id = Convert.ToInt32(Request.Cookies["Id"].Value);
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"api/Teacher/GetStudentsByTeacherId/{id}");

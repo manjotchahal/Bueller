@@ -12,18 +12,9 @@ namespace Bueller.Client.Controllers
 {
     public class AssignmentController : ServiceController
     {
-
-
-        public AssignmentController()
-        {
-            ViewBag.Title = "AssignmentController";
-        }
-
-
-
         // GET: Assignment
         [HttpGet]
-        public async Task<ViewResult> Index(int id)
+        public async Task<ActionResult> Index(int id)
         {
 
             if (!ModelState.IsValid)
@@ -81,6 +72,12 @@ namespace Bueller.Client.Controllers
 
         public ViewResult Create()
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (Request.Cookies["Role"].Value != "teacher")
             {
                 return View("Error");
@@ -138,6 +135,12 @@ namespace Bueller.Client.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (id == 0)
             {
                 return View("Error");
@@ -212,6 +215,12 @@ namespace Bueller.Client.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
+            if (Request.Cookies["AuthTestCookie"] == null)
+            {
+                TempData["Error"] = "Not logged in!";
+                return View("Error");
+            }
+
             if (Request.Cookies["Role"].Value != "teacher")
             {
                 return View("Error");
