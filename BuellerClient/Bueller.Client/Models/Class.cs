@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using Foolproof;
 
 namespace Bueller.Client.Models
 {
@@ -89,6 +90,7 @@ namespace Bueller.Client.Models
         [Display(Name = "Subject")]
         public string SubjectName { get; set; }
 
+        [RequiredIf("SubjectName","Add Subject",DependentPropertyDisplayName ="Subject",ErrorMessage ="Enter new subject name")]
         [Display(Name = "New Subject")]
         public string NewSubject { get; set; }
 
