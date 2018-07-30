@@ -70,6 +70,12 @@ namespace Bueller.Client.Models
         [Range(0, 1, ErrorMessage = "Enter 1 if class held on corresponding day, 0 otherwise")]
         public int Fri { get; set; }
 
+        public bool Monday { get { return Mon == 1; } set { Mon = value ? 1 : 0; } }
+        public bool Tuesday { get { return Tues == 1; } set { Tues = value ? 1 : 0; } }
+        public bool Wednesday { get { return Wed == 1; } set { Wed = value ? 1 : 0; } }
+        public bool Thursday { get { return Thurs == 1; } set { Thurs = value ? 1 : 0; } }
+        public bool Friday { get { return Fri == 1; } set { Fri = value ? 1 : 0; } }
+
         [ScaffoldColumn(false)]
         public int? TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
