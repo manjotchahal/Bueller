@@ -62,6 +62,7 @@ namespace Bueller.Client.Controllers
                 if (apiResponse2.IsSuccessStatusCode)
                 {
                     classes2 = await apiResponse2.Content.ReadAsAsync<List<Class>>();
+                    TempData["StudentClasses"] = classes2;
                     List<int> ids = new List<int>();
                     foreach (var item in classes2)
                     {
@@ -196,6 +197,25 @@ namespace Bueller.Client.Controllers
 
             var classresponse = await apiResponse.Content.ReadAsAsync<Class>();
 
+            TempData["ConfirmedEnroll"] = true;
+
+            //check for overlap with enrolled classes to prevent enrolling
+            List <Class> myClasses = (List<Class>)TempData.Peek("StudentClasses");
+            if (Request.Cookies.Get("Role").Value == "student")
+            { 
+                foreach (var item in myClasses)
+                {
+                    if (item.HasSameClassDay(classresponse))
+                    {
+                        if ((item.StartTime <= classresponse.StartTime && classresponse.StartTime <= item.EndTime) || (item.StartTime <= classresponse.EndTime && classresponse.EndTime <= item.EndTime))
+                        {
+                            TempData["Error"] = $"Class time conflicts with enrolled class: {item.Name}";
+                            return View("Error");
+                        }
+                    }
+                }
+            }
+            
             HttpRequestMessage apiRequest2 = CreateRequestToService(HttpMethod.Get, $"api/Class/EnrollmentCount/{id}");
             HttpResponseMessage apiResponse2;
 
@@ -239,6 +259,11 @@ namespace Bueller.Client.Controllers
             //{
             //    return View("Error");
             //}
+            if (TempData["ConfirmedEnroll"] == null)
+            {
+                TempData["Error"] = "Did not confirm enrollment";
+                return View("Error");
+            }
 
             var personId = Convert.ToInt32(Request.Cookies.Get("Id").Value);
 

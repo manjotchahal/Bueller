@@ -157,5 +157,18 @@ namespace Bueller.Client.Models
 
             return true;
         }
+
+        public bool HasSameClassDay(object obj)
+        {
+            var other = obj as Class;
+
+            if (other == null)
+                return false;
+
+            if ((Monday && other.Monday) || (Tuesday && other.Tuesday) || (Wednesday && other.Wednesday) || (Thursday && other.Thursday) || (Friday && other.Friday))
+                return true;
+
+            return false;
+        }
     }
 }
