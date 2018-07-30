@@ -51,6 +51,24 @@ namespace Bueller.Client.Controllers
                 assignments = await apiResponse.Content.ReadAsAsync<List<Assignment>>();
             }
 
+            int count = 0;
+            double grade = 0;
+            bool hasGrades = false;
+            foreach(var item in assignments)
+            {
+                foreach (var file in item.Files)
+                {
+                    if (file.Score != null)
+                    {
+                        grade += (double)file.Score;
+                        count++;
+                        hasGrades = true;
+                    }
+                }
+            }
+            ViewBag.HasGrades = hasGrades;
+            ViewBag.AverageGrade = grade / count;
+
             ViewBag.classid = id;
             //ViewBag.ClassName = "";
 
