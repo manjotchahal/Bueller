@@ -84,25 +84,9 @@
     <Compile Include="AutoMapperProfile.cs" />
     <Compile Include="BuellerContext.cs" />
     <Compile Include="IDbContext.cs" />
-    <Compile Include="Migrations\201807201540118_InitialCreate.cs" />
-    <Compile Include="Migrations\201807201540118_InitialCreate.Designer.cs">
-      <DependentUpon>201807201540118_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807241953234_RemoveDepartmentInSubject.cs" />
-    <Compile Include="Migrations\201807241953234_RemoveDepartmentInSubject.Designer.cs">
-      <DependentUpon>201807241953234_RemoveDepartmentInSubject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807252056314_AddGradeNavigationToFile.cs" />
-    <Compile Include="Migrations\201807252056314_AddGradeNavigationToFile.Designer.cs">
-      <DependentUpon>201807252056314_AddGradeNavigationToFile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807261503138_SeparateGradeIntoFileAndAssignment.cs" />
-    <Compile Include="Migrations\201807261503138_SeparateGradeIntoFileAndAssignment.Designer.cs">
-      <DependentUpon>201807261503138_SeparateGradeIntoFileAndAssignment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807262008485_AddSubmittedAndGradedDatesToFile.cs" />
-    <Compile Include="Migrations\201807262008485_AddSubmittedAndGradedDatesToFile.Designer.cs">
-      <DependentUpon>201807262008485_AddSubmittedAndGradedDatesToFile.cs</DependentUpon>
+    <Compile Include="Migrations\201807311457532_Initial.cs" />
+    <Compile Include="Migrations\201807311457532_Initial.Designer.cs">
+      <DependentUpon>201807311457532_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
@@ -138,20 +122,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807201540118_InitialCreate.resx">
-      <DependentUpon>201807201540118_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807241953234_RemoveDepartmentInSubject.resx">
-      <DependentUpon>201807241953234_RemoveDepartmentInSubject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807252056314_AddGradeNavigationToFile.resx">
-      <DependentUpon>201807252056314_AddGradeNavigationToFile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807261503138_SeparateGradeIntoFileAndAssignment.resx">
-      <DependentUpon>201807261503138_SeparateGradeIntoFileAndAssignment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807262008485_AddSubmittedAndGradedDatesToFile.resx">
-      <DependentUpon>201807262008485_AddSubmittedAndGradedDatesToFile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807311457532_Initial.resx">
+      <DependentUpon>201807311457532_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

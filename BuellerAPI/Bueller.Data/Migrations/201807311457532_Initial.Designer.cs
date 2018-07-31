@@ -7,13 +7,13 @@ namespace Bueller.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class RemoveDepartmentInSubject : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveDepartmentInSubject));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807241953234_RemoveDepartmentInSubject"; }
+            get { return "201807311457532_Initial"; }
         }
         
         string IMigrationMetadata.Source

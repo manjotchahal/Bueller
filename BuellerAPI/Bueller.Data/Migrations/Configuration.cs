@@ -10,7 +10,6 @@ namespace Bueller.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Bueller.Data.BuellerContext";
         }
 
         protected override void Seed(Bueller.Data.BuellerContext context)
