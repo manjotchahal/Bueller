@@ -226,15 +226,18 @@ namespace Bueller.Client.Controllers
             TempData["ConfirmedEnroll"] = true;
 
             //check for overlap with enrolled classes to prevent enrolling
-            List <Class> myClasses = (List<Class>)TempData.Peek("ConflictComparison");
-            foreach (var item in myClasses)
+            List<Class> myClasses = (List<Class>)TempData.Peek("ConflictComparison");
+            if (myClasses != null)
             {
-                if (item.HasSameClassDay(classresponse))
+                foreach (var item in myClasses)
                 {
-                    if ((item.StartTime <= classresponse.StartTime && classresponse.StartTime < item.EndTime) || (item.StartTime < classresponse.EndTime && classresponse.EndTime <= item.EndTime))
+                    if (item.HasSameClassDay(classresponse))
                     {
-                        TempData["Error"] = $"Class time conflicts with enrolled class: {item.Name}";
-                        return View("Error");
+                        if ((item.StartTime <= classresponse.StartTime && classresponse.StartTime < item.EndTime) || (item.StartTime < classresponse.EndTime && classresponse.EndTime <= item.EndTime))
+                        {
+                            TempData["Error"] = $"Class time conflicts with enrolled class: {item.Name}";
+                            return View("Error");
+                        }
                     }
                 }
             }
