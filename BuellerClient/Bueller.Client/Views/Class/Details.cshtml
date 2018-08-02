@@ -82,6 +82,21 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+        <dt>
+            Books:
+        </dt>
+
+        @if (Model.Books != null && Model.Books.Any())
+        {
+            foreach (var item in Model.Books)
+            {
+                string a = "http://localhost:4200/detail/" + item.BookId;
+                <dd>
+                    <a href=@a> @Html.DisplayFor(modelItem => item.Title) </a>
+                </dd>
+            }
+        }
+
     </dl>
 </div>
 <p>
