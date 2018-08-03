@@ -1,0 +1,28 @@
+<div *ngIf="book">
+  <h2>{{book.Title | uppercase}} Details</h2>
+  <!-- <div><span>id: </span>{{hero.id}}</div> -->
+  <div>
+    <label>title:
+      <input [(ngModel)]="book.Title" placeholder="title"/>
+    </label>
+  </div>
+  <div>
+      <label>price:
+        <input [(ngModel)]="book.Price" placeholder="price"/>
+      </label>
+    </div>
+  <div>
+    <label>description:
+      <input [(ngModel)]="book.Description" placeholder="description"/>
+    </label>
+  </div>
+</div>
+<h4>Required for classes:</h4>
+<ul class="books">
+    <li *ngFor="let class of classes">
+        <!-- <span class="badge">{{book.bookId}}</span> -->{{class.Name}} 
+    </li>
+  </ul>
+<button (click)="save()">save</button>
+<button (click)="goBack()">go back</button>
+
