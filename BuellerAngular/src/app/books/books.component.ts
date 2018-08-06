@@ -25,8 +25,9 @@ export class BooksComponent implements OnInit {
     Title = Title.trim();
     Description = Description.trim();
     //number BookId = 0;
-    if (!Title || !Description || !Price) { return; }
+    if (!Title || !Price) { return; }
     this.bookService.addBook({ Title, Description, Price } as Book).subscribe(book => { this.books.push(book); });
+    location.reload();
   }
 
   delete(book: Book): void {
