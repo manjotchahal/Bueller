@@ -8,6 +8,7 @@ label {
   }
   input {
     height: 2em;
+    width: 20em;
     font-size: 1em;
     padding-left: .4em;
   }
@@ -44,11 +45,11 @@ label {
     border-radius: 4px;
   }
    
-  .books li:hover {
+  /* .books li:hover {
     color: #607D8B;
     background-color: #DDD;
     left: .1em;
-  }
+  } */
    
   .books a {
     color: #888;

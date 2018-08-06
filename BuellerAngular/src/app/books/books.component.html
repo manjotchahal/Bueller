@@ -1,21 +1,22 @@
 <h2>All Books</h2>
 <div>
   <label>Book title:
-    <input #bookTitle />
+    <input #bookTitle placeholder="title"/>
   </label>
   <br>
   <label>Price:
-    <input #bookPrice />
+    <input #bookPrice placeholder="price"/>
   </label>
   <br>
   <label>Description:
-    <input #bookDescription />
+    <input #bookDescription placeholder="description"/>
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(bookTitle.value, bookDescription.value, bookPrice.value); bookTitle.value=''; bookDescription.value=''; bookPrice.value=''">
-    add
-  </button>
 </div>
+<button (click)="add(bookTitle.value, bookDescription.value, bookPrice.value); bookTitle.value=''; bookDescription.value=''; bookPrice.value=''">
+  add
+</button>
+<br>
 <br>
 <ul class="books">
   <li *ngFor="let book of books">
