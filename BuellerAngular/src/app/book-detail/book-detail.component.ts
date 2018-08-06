@@ -36,8 +36,10 @@ export class BookDetailComponent implements OnInit {
   //   this.bookService.getClasses(id).subscribe(classes => this.classes = classes);
   // }
 
-  save(): void {
-    this.bookService.updateBook(this.book)
+  save(Title: string, Description: string, Price: number): void {
+    if (Title == this.book.Title && Description == this.book.Description && Price == this.book.Price) {return;}
+    var BookId = this.book.BookId;
+    this.bookService.updateBook({ BookId,Title,Price,Description } as Book)
       .subscribe(() => this.goBack());
   }
 
