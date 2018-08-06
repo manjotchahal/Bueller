@@ -32,19 +32,19 @@ export class BookService {
   } 
 
   /** GET classes by book id. Will 404 if id not found */
-  getClasses(id: number): Observable<Class[]> {
-    const url = `${this.booksUrl}/GetClassesByBookId/${id}`;
-    return this.http.get<Class[]>(url).pipe(tap(classes => this.log(`fetched classes by book id=${id}`)), catchError(this.handleError(`getClasses id=${id}`,[])));
-  } 
+  // getClasses(id: number): Observable<Class[]> {
+  //   const url = `${this.booksUrl}/GetClassesByBookId/${id}`;
+  //   return this.http.get<Class[]>(url).pipe(tap(classes => this.log(`fetched classes by book id=${id}`)), catchError(this.handleError(`getClasses id=${id}`,[])));
+  // } 
 
   /** PUT: update the book on the server */
   updateBook (book: Book): Observable<any> {
-    return this.http.put(this.booksUrl+`/Edit/${book.BookId}`, book, httpOptions).pipe(tap(_ => this.log(`updated book id=${book.id}`)), catchError(this.handleError<any>('updateBook')));
+    return this.http.put(this.booksUrl+`/Edit/${book.BookId}`, book, httpOptions).pipe(tap(_ => this.log(`updated book id=${book.BookId}`)), catchError(this.handleError<any>('updateBook')));
   }
 
   /** POST: add a new book to the server */
   addBook (book: Book): Observable<Book> {
-    return this.http.post(this.booksUrl+'/Add', book, httpOptions).pipe(tap((book: Book) => this.log(`added book w/ id=${book.id}`)), catchError(this.handleError<Book>('addBook')));
+    return this.http.post(this.booksUrl+'/Add', book, httpOptions).pipe(tap((book: Book) => this.log(`added book w/ id=${book.BookId}`)), catchError(this.handleError<Book>('addBook')));
   }
 
   /** DELETE: delete the hero from the server */

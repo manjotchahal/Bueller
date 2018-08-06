@@ -23,7 +23,7 @@ export class BookDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBook();
-    this.getClasses();
+    //this.getClasses();
   }
 
   getBook(): void {
@@ -31,10 +31,10 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBook(id).subscribe(book => this.book = book);
   }
 
-  getClasses(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.bookService.getClasses(id).subscribe(classes => this.classes = classes);
-  }
+  // getClasses(): void {
+  //   const id = +this.route.snapshot.paramMap.get('id');
+  //   this.bookService.getClasses(id).subscribe(classes => this.classes = classes);
+  // }
 
   save(): void {
     this.bookService.updateBook(this.book)

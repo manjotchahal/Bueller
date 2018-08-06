@@ -19,10 +19,10 @@
 </div>
 <h4>Required for classes:</h4>
 <ul class="books">
-    <li *ngFor="let class of classes">
+    <li *ngFor="let class of book.Classes">
         <!-- <span class="badge">{{book.bookId}}</span> -->{{class.Name}} 
     </li>
-  </ul>
+</ul>
 <button (click)="save()">save</button>
 <button (click)="goBack()">go back</button>
 
